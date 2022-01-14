@@ -617,7 +617,7 @@ class TalkAssistant(DirectObject.DirectObject):
 
     def sendOpenTalk(self, message):
         error = None
-        if base.cr.magicWordManager and base.cr.wantMagicWords and len(message) > 0 and message[0] == base.cr.magicWordManager.chatPrefix:
+        if base.cr.wantMagicWords and len(message) > 0 and message[0] == '~':
             messenger.send('magicWord', [message])
             self.receiveDeveloperMessage(message)
         else:

@@ -42,7 +42,6 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
             self._districtWeAreGeneratedOn = None
             self.DISLname = ''
             self.DISLid = 0
-            self.accessLevel = 0
             self.autoRun = 0
             self.whiteListEnabled = base.config.GetBool('whitelist-chat-enabled', 1)
 
@@ -454,11 +453,3 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
 
     def getAutoRun(self):
         return self.autoRun
-
-    def setAccessLevel(self, accessLevel):
-        self.accessLevel = accessLevel
-        if self.isLocal():
-            self.cr.wantMagicWords = self.accessLevel > OTPGlobals.AccessLevelName2Int.get('NO_ACCESS')
-
-    def getAccessLevel(self):
-        return self.accessLevel
