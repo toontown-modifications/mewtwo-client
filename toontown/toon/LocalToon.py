@@ -1180,7 +1180,7 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             elif self.cr.furnitureManager != None:
                 self.showFurnitureGui()
                 taskMgr.remove('lerpFurnitureButton')
-                self.__furnitureGui.lerpPosHprScale(pos=Point3(-1.19, 0.0, 0.33), hpr=Vec3(0.0, 0.0, 0.0), scale=Vec3(0.04, 0.04, 0.04), time=1.0, blendType='easeInOut', task='lerpFurnitureButton')
+                self.__furnitureGui.posHprScaleInterval(pos=Point3(-1.19, 0.0, 0.33), hpr=Vec3(0.0, 0.0, 0.0), scale=Vec3(0.04, 0.04, 0.04), duration=1.0, blendType='easeInOut', name='lerpFurnitureButton').start()
         if hasattr(self, 'inEstate') and self.inEstate:
             self.loadGardeningGui()
             self.hideGardeningGui()
