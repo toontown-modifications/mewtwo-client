@@ -137,26 +137,28 @@ class DistributedToonInterior(DistributedObject.DistributedObject):
         self.zoneId = zoneId
         self.block = block
 
-    def setSavedBy(self, savedBy):
+    def setToonData(self, toonData):
+        savedBy = pickle.loads(toonData)
         self.savedBy = savedBy
 
     def buildTrophy(self):
-        if not self.savedBy:
+        if self.savedBy == None:
             return
         numToons = len(self.savedBy)
         pos = 1.25 - 1.25 * numToons
         trophy = hidden.attachNewNode('trophy')
-        for avId, name, dnaString in self.savedBy:
-            frame = self.buildFrame(name, dnaString)
+        for avId, name, dnaTuple, isGM in self.savedBy:
+            frame = self.buildFrame(name, dnaTuple)
             frame.reparentTo(trophy)
             frame.setPos(pos, 0, 0)
             pos += 2.5
 
         return trophy
 
-    def buildFrame(self, name, dnaString):
+    def buildFrame(self, name, dnaTuple):
         frame = loader.loadModel('phase_3.5/models/modules/trophy_frame')
-        dna = ToonDNA.ToonDNA(dnaString)
+        dna = ToonDNA.ToonDNA()
+        dna.newToonFromProperties(*dnaTuple)
         head = ToonHead.ToonHead()
         head.setupHead(dna)
         head.setPosHprScale(0, -0.05, -0.05, 180, 0, 0, 0.55, 0.02, 0.55)
