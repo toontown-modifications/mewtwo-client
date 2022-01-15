@@ -100,3 +100,4 @@ server-data-folder data
 astron-support 0
 server-want-ssl 1
 game-server unite.sunrise.games:6667
+want-magic-words true
