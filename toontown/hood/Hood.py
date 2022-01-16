@@ -60,7 +60,7 @@ class Hood(StateData.StateData):
                 'details': f'{base.localAvatar.getName()} ({base.localAvatar.getHp()} / {base.localAvatar.getMaxHp()})',
                 'state': base.cr.hoodMgr.getFullnameFromId(self.id),
                 'start': int(time.time()),
-                'large_text': shardName,
+                'large_text': f'{base.cr.serverVersion} - {shardName}',
                 'large_image': image
             }
 
