@@ -13,7 +13,7 @@ from toontown.toon import TTEmote
 from otp.avatar import Emote
 from . import SuitBattleGlobals
 from toontown.distributed import DelayDelete
-import random
+import random, time
 
 class DistributedBattle(DistributedBattleBase.DistributedBattleBase):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedBattle')
@@ -159,6 +159,19 @@ class DistributedBattle(DistributedBattleBase.DistributedBattleBase):
         self.__faceOff(ts, self.faceOffName, self.__handleFaceOffDone)
         if self.interactiveProp:
             self.interactiveProp.gotoFaceoff()
+
+        if base.wantDiscordPresence and base.haveDiscordOpen:
+            shardName = base.cr.getShardName(base.localAvatar.defaultShard)
+
+            activity = {
+                'details': f'{base.localAvatar.getName()} ({base.localAvatar.getHp()} / {base.localAvatar.getMaxHp()})',
+                'state': f'Fighting Cogs ({len(self.toons)} / 4)',
+                'start': int(time.time()),
+                'large_text': shardName,
+                'large_image': 'sunrise_games' # TODO
+            }
+
+            base.cr.discordPresence.updatePresence(activity)
 
     def __handleFaceOffDone(self):
         self.notify.debug('FaceOff done')

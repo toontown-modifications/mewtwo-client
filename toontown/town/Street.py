@@ -20,6 +20,7 @@ from toontown.toon.Toon import teleportDebug
 from toontown.estate import HouseGlobals
 from toontown.toonbase import TTLocalizer
 from direct.interval.IntervalGlobal import *
+import time
 visualizeZones = base.config.GetBool('visualize-zones', 0)
 
 class Street(BattlePlace.BattlePlace):
@@ -139,6 +140,20 @@ class Street(BattlePlace.BattlePlace):
         self.tunnelOriginList = base.cr.hoodMgr.addLinkTunnelHooks(self, self.loader.nodeList, self.zoneId)
         self.fsm.request(requestStatus['how'], [requestStatus])
         self.replaceStreetSignTextures()
+
+        if base.wantDiscordPresence and base.haveDiscordOpen:
+            shardName = base.cr.getShardName(base.localAvatar.defaultShard)
+            streetName = ZoneUtil.getStreetName(ZoneUtil.getBranchZone(self.zoneId))
+
+            activity = {
+                'details': f'{base.localAvatar.getName()} ({base.localAvatar.getHp()} / {base.localAvatar.getMaxHp()})',
+                'state': f'{streetName}',
+                'start': int(time.time()),
+                'large_text': shardName,
+                'large_image': 'sunrise_games' # TODO
+            }
+
+            base.cr.discordPresence.updatePresence(activity)
         return
 
     def exit(self, visibilityFlag = 1):
