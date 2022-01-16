@@ -13,6 +13,7 @@ from . import ZoneUtil
 from toontown.toonbase import TTLocalizer
 from toontown.toon.Toon import teleportDebug
 from direct.interval.IntervalGlobal import *
+import time
 
 class Hood(StateData.StateData):
     notify = DirectNotifyGlobal.directNotify.newCategory('Hood')
@@ -39,6 +40,31 @@ class Hood(StateData.StateData):
         hoodText = self.getHoodText(zoneId)
         self.titleText = OnscreenText.OnscreenText(hoodText, fg=self.titleColor, font=getSignFont(), pos=(0, -0.5), scale=TTLocalizer.HtitleText, drawOrder=0, mayChange=1)
         self.fsm.request(requestStatus['loader'], [requestStatus])
+
+        if base.wantDiscordPresence and base.haveDiscordOpen:
+            self.updateDiscordPresence()
+
+    def updateDiscordPresence(self):
+        try:
+            zoneId = base.cr.playGame.getPlace().getZoneId()
+        except:
+            zoneId = 0
+
+        if zoneId and ZoneUtil.isWelcomeValley(zoneId):
+            shardName = 'Welcome Valley'
+        else:
+            shardName = base.cr.getShardName(base.localAvatar.defaultShard)
+            image = ToontownGlobals.getDiscordImage(zoneId)
+
+            activity = {
+                'details': f'{base.localAvatar.getName()} ({base.localAvatar.getHp()} / {base.localAvatar.getMaxHp()})',
+                'state': base.cr.hoodMgr.getFullnameFromId(self.id),
+                'start': int(time.time()),
+                'large_text': shardName,
+                'large_image': image
+            }
+
+            base.cr.discordPresence.updatePresence(activity)
 
     def getHoodText(self, zoneId):
         hoodText = base.cr.hoodMgr.getFullnameFromId(self.id)

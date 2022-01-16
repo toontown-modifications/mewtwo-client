@@ -150,6 +150,9 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
                                 except Exception as e:
                                     print(e)
 
+        if base.wantDiscordPresence:
+            from toontown.discord.ToontownDiscordPresence import ToontownDiscordPresence
+            self.discordPresence = ToontownDiscordPresence()
         return
 
     def congratulations(self, avatarChoice):

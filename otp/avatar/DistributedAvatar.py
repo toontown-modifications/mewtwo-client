@@ -131,6 +131,11 @@ class DistributedAvatar(DistributedActor, Avatar):
         self.hpChange(quietly=1)
         if justRanOutOfHp:
             self.died()
+
+        if base.wantDiscordPresence and base.haveDiscordOpen:
+            # Make sure our stats on Discord is updated, too.
+            if hasattr(base.cr.playGame, 'hood') and base.cr.playGame.hood:
+                base.cr.playGame.hood.updateDiscordPresence()
         return
 
     def hpChange(self, quietly = 0):

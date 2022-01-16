@@ -101,3 +101,5 @@ astron-support 0
 server-want-ssl 1
 game-server unite.sunrise.games:6667
 want-magic-words true
+want-discord-presence true
+discord-client-id 592845025331642389

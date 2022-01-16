@@ -1670,3 +1670,21 @@ AV_TOUCH_CHECK_DIST_Z = 5.0
 AV_TOUCH_CHECK_TIMELIMIT_CL = 0.002
 AV_TOUCH_COUNT_LIMIT = 5
 AV_TOUCH_COUNT_TIME = 300
+
+zoneMap = {
+    ToontownCentral: 'toontown_central',
+    DonaldsDock: 'donalds_dock',
+    DaisyGardens: 'daisys_garden' ,
+    MinniesMelodyland: 'minnies_melodyland',
+    TheBrrrgh: 'the_brrrgh',
+    DonaldsDreamland: 'donalds_dreamland',
+    SellbotHQ: 'sellbot_hq'
+}
+
+def getDiscordImage(zoneId):
+    if zoneId in zoneMap:
+        # Use the associated image.
+        return zoneMap[zoneId]
+
+    # Use the default icon.
+    return 'sunrise_games'

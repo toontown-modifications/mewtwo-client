@@ -147,6 +147,10 @@ class ToonBase(OTPBase.OTPBase):
         self.oldX = max(1, base.win.getXSize())
         self.oldY = max(1, base.win.getYSize())
         self.aspectRatio = float(self.oldX) / self.oldY
+
+        # Discord integration
+        self.haveDiscordOpen = False
+        self.wantDiscordPresence = config.GetBool('want-discord-presence', False)
         return
 
     def windowEvent(self, win):
