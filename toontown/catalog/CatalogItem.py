@@ -257,21 +257,18 @@ class CatalogItem:
         c = self.__class__ == other.__class__
         if not c:
             return 0
-
         return self.compareTo(other) < 0
 
     def __gt__(self, other):
         c = self.__class__ == other.__class__
         if not c:
             return 0
-
         return self.compareTo(other) > 0
 
     def __eq__(self, other):
         c = self.__class__ == other.__class__
         if not c:
             return 0
-
         return self.compareTo(other) == 0
 
     def __hash__(self):
