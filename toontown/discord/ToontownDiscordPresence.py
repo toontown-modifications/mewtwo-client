@@ -42,5 +42,5 @@ class ToontownDiscordPresence:
         ]
 
         # Send the update to the RPC client.
-        self.notify.info(f'Updating RPC with data: {data}')
+        self.notify.debug(f'Updating RPC with data: {data}')
         self.rpcClient.update(**data, buttons = buttons)

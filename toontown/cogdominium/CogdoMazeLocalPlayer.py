@@ -10,6 +10,7 @@ from . import CogdoGameConsts
 from . import CogdoMazeGameGlobals as Globals
 from .CogdoMazePlayer import CogdoMazePlayer
 from .CogdoMazeCameraManager import CogdoMazeCameraManager
+import time
 
 class CogdoMazeLocalPlayer(CogdoMazePlayer):
     notify = directNotify.newCategory('CogdoMazeLocalPlayer')
@@ -219,6 +220,22 @@ class CogdoMazeLocalPlayer(CogdoMazePlayer):
          self.toon.hp,
          self.toon.maxHp,
          len(self.game.players)))
+
+        self.setDiscordPresence()
+
+    def setDiscordPresence(self):
+        if base.wantDiscordPresence and base.haveDiscordOpen:
+            shardName = base.cr.getShardName(base.localAvatar.defaultShard)
+
+            activity = {
+                'details': f'{base.localAvatar.getName()} ({base.localAvatar.getHp()} / {base.localAvatar.getMaxHp()})',
+                'state': f'Sellbot Field Office ({len(self.game.players)} / 4)',
+                'start': int(time.time()),
+                'large_text': shardName,
+                'large_image': 'sbfo'
+            }
+
+            base.cr.discordPresence.updatePresence(activity)
 
     def handleGameExit(self):
         self.cameraMgr.disable()
