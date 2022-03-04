@@ -97,7 +97,6 @@ accept-clock-skew 1
 text-minfilter linear_mipmap_linear
 gc-save-all 0
 server-data-folder data
-astron-support 0
 server-want-ssl 1
 game-server unite.sunrise.games:6667
 want-magic-words true
