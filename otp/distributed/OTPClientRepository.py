@@ -942,7 +942,7 @@ class OTPClientRepository(ClientRepositoryBase):
                 avNames[1] = di.getString()
                 avNames[2] = di.getString()
                 avNames[3] = di.getString()
-                avDNA = di.getString()
+                avDNA = di.getBlob()
                 avPosition = di.getUint8()
                 aname = di.getUint8()
                 potAv = PotentialAvatar(avNum, avNames, avDNA, avPosition, aname)
@@ -1001,7 +1001,7 @@ class OTPClientRepository(ClientRepositoryBase):
         datagram = PyDatagram()
         datagram.addUint16(CLIENT_CREATE_AVATAR)
         datagram.addUint16(0)
-        datagram.addString(avDNA.makeNetString())
+        datagram.addBlob(avDNA.makeNetString())
         datagram.addUint8(avPosition)
         self.newName = avName
         self.newDNA = avDNA
