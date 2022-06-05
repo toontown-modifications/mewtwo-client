@@ -37,7 +37,7 @@ class ToontownDiscordPresence:
                 'label': 'Website', 'url': 'https://sunrise.games'
             },
             {
-                'label': 'Discord', 'url': 'https://discord.gg/8tx4RzRMcm'
+                'label': 'Discord', 'url': 'https://discord.gg/sunrise'
             }
         ]
 
