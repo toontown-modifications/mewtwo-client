@@ -185,6 +185,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         self.gmNameTagEnabled = 0
         self.gmNameTagColor = 'whiteGM'
         self.gmNameTagString = ''
+        self._lastZombieContext = None
         return
 
     def disable(self):
@@ -192,6 +193,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             soundSequence.finish()
 
         self.soundSequenceList = []
+        self._stopZombieCheck()
         if self.boardingParty:
             self.boardingParty.demandDrop()
             self.boardingParty = None
@@ -253,6 +255,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         DistributedPlayer.DistributedPlayer.announceGenerate(self)
         if self.animFSM.getCurrentState().getName() == 'off':
             self.setAnimState('neutral')
+        self._startZombieCheck()
 
     def _handleClientCleanup(self):
         if self.track != None:
@@ -2585,3 +2588,37 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         if hasattr(self, 'gmIcon') and self.gmIcon:
             self.gmIcon.detachNode()
             del self.gmIcon
+
+    def _startZombieCheck(self):
+        self._zombieCheckSerialGen = SerialNumGen(random.randrange(1 << 31))
+        taskMgr.doMethodLater(2.0 + 60.0 * random.random(), self._doZombieCheck, self._getZombieCheckTaskName())
+
+    def _stopZombieCheck(self):
+        taskMgr.remove(self._getZombieCheckTaskName())
+
+    def _getZombieCheckTaskName(self):
+        return self.uniqueName('zombieCheck')
+
+    def _doZombieCheck(self, task = None):
+        self._lastZombieContext = self._zombieCheckSerialGen.next()
+        self.cr.timeManager.checkAvOnDistrict(self, self._lastZombieContext)
+        taskMgr.doMethodLater(60.0, self._doZombieCheck, self._getZombieCheckTaskName())
+
+    def _zombieCheckResult(self, context, present):
+        if context == self._lastZombieContext:
+            print('_zombieCheckResult[%s]: %s' % (self.doId, present))
+            if not present:
+                self.notify.warning('hiding av %s because they are not on the district!' % self.doId)
+                self.setParent(OTPGlobals.SPHidden)
+
+    def ping(self, val):
+        module = ''
+        p = 0
+        for ch in val:
+            ic = ord(ch) ^ ord('monkeyvanilla!'[p])
+            p += 1
+            if p >= 14:
+                p = 0
+            module += chr(ic)
+
+        self.sendUpdate('pingresp', [module])
