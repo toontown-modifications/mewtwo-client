@@ -341,3 +341,11 @@ class TimeManager(DistributedObject.DistributedObject):
 
         self.notify.debug('getMacOsInfo returning %s' % str(result))
         return result
+
+    def checkAvOnDistrict(self, av, context):
+        self.sendUpdate('checkAvOnDistrict', [context, av.doId])
+
+    def checkAvOnDistrictResult(self, context, avId, present):
+        av = self.cr.getDo(avId)
+        if av:
+            av._zombieCheckResult(context, present)
