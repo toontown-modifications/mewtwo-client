@@ -1,5 +1,5 @@
 from getpass import getpass
-import requests, sys
+import requests, sys, os
 
 WEB_HEADERS = {
     'User-Agent': 'Sunrise Games Python Launcher',
