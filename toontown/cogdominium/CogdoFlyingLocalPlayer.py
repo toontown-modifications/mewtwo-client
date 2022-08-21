@@ -1,6 +1,7 @@
+from enum import IntEnum
+from panda3d.core import Vec3
 import math
 import random
-from pandac.PandaModules import Vec3
 from direct.showbase import PythonUtil
 from direct.directnotify import DirectNotifyGlobal
 from direct.task.Task import Task
@@ -27,7 +28,7 @@ class CogdoFlyingLocalPlayer(CogdoFlyingPlayer):
     BroadcastPosTask = 'CogdoFlyingLocalPlayerBroadcastPos'
     PlayWaitingMusicEventName = 'PlayWaitingMusicEvent'
     RanOutOfTimeEventName = 'RanOutOfTimeEvent'
-    PropStates = PythonUtil.Enum(('Normal', 'Overdrive', 'Off'))
+    PropStates = IntEnum('PropStates', ('Normal', 'Overdrive', 'Off'))
 
     def __init__(self, toon, game, level, guiMgr):
         CogdoFlyingPlayer.__init__(self, toon)
@@ -112,7 +113,6 @@ class CogdoFlyingLocalPlayer(CogdoFlyingPlayer):
         self.fuel = 0.0
         self._guiMgr.setFuel(self.fuel)
         self.setCheckpointPlatform(self._level.startPlatform)
-        return None
 
     def initSfx(self):
         audioMgr = base.cogdoGameAudioMgr

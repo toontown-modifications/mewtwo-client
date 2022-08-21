@@ -1,7 +1,10 @@
-from direct.showbase.PythonUtil import Enum, invertDictLossless
+from direct.showbase.PythonUtil import invertDictLossless
 from direct.interval.IntervalGlobal import *
+from enum import IntEnum
 import random
-Tricks = Enum('JUMP, BEG, PLAYDEAD, ROLLOVER, BACKFLIP, DANCE, SPEAK, BALK,')
+
+Tricks = IntEnum('Tricks', ('JUMP', 'BEG', 'PLAYDEAD', 'ROLLOVER', 'BACKFLIP', 'DANCE', 'SPEAK', 'BALK'), start = 0)
+
 NonHappyMinActualTrickAptitude = 0.1
 NonHappyMaxActualTrickAptitude = 0.6
 MinActualTrickAptitude = 0.5
@@ -72,7 +75,6 @@ def getSoundIval(trickId):
 
             return soundIval
     return
-
 
 def getTrickIval(pet, trickId):
     anims = TrickAnims[trickId]
