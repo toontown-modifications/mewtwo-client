@@ -14,7 +14,7 @@ from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownGlobals
 from direct.showbase import PythonUtil
 import random
-from panda3d.otp import NametagGroup
+from panda3d.otp import NametagGroup, CFSpeech, CFThought
 
 Component2IconDict = {'boredom': 'Bored',
  'restlessness': None,
