@@ -31,6 +31,7 @@ ServerDialogTimeout = 3.0
 
 class NameShop(StateData.StateData):
     notify = DirectNotifyGlobal.directNotify.newCategory('NameShop')
+    notify.setDebug(True)
 
     def __init__(self, makeAToon, doneEvent, avList, index, isPaid):
         StateData.StateData.__init__(self, doneEvent)
@@ -537,8 +538,8 @@ class NameShop(StateData.StateData):
 
         def match(npcName, name = name):
             name = TextEncoder().encodeWtext(name)
-            name = string.strip(name)
-            return TextEncoder.upper(npcName) == TextEncoder.upper(name)
+            name = name.strip()
+            return TextEncoder.upper(npcName) == TextEncoder.upper(name.decode())
 
         for npcId in list(NPCToons.NPCToonDict.keys()):
             npcName = NPCToons.NPCToonDict[npcId][1]
@@ -774,10 +775,10 @@ class NameShop(StateData.StateData):
         self.notify.debug('__typedAName')
         self.nameEntry['focus'] = 0
         name = self.nameEntry.get()
-        name = TextEncoder().decodeText(name)
+        name = TextEncoder().decodeText(name.encode())
         name = name.strip()
         name = TextEncoder().encodeWtext(name)
-        self.nameEntry.enterText(name)
+        self.nameEntry.enterText(name.decode())
         problem = self.nameIsValid(self.nameEntry.get())
         if problem:
             self.rejectName(problem)
