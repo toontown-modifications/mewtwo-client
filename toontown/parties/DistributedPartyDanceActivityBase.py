@@ -20,7 +20,7 @@ from toontown.parties import PartyGlobals
 from enum import IntEnum
 
 DANCE_FLOOR_COLLISION = 'danceFloor_collision'
-DanceViews = IntEnum('DanceViews', ('Normal', 'Dancing', 'Isometric'))
+DanceViews = IntEnum('DanceViews', ('Normal', 'Dancing', 'Isometric'), start=0)
 
 class DistributedPartyDanceActivityBase(DistributedPartyActivity):
     notify = directNotify.newCategory('DistributedPartyDanceActivity')
