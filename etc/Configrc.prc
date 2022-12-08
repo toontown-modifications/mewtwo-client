@@ -100,5 +100,5 @@ server-data-folder data
 server-want-ssl true
 game-server 127.0.0.1:6667
 want-magic-words true
-want-discord-presence true
+want-discord-presence false
 discord-client-id 592845025331642389

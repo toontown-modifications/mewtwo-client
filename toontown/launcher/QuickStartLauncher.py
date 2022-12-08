@@ -1,10 +1,19 @@
 if __debug__:
     from panda3d.core import loadPrcFile
-    loadPrcFile('etc/Configrc.prc')
+    loadPrcFile("etc/Configrc.prc")
 else:
     import sys
-    sys.path = ['']
+    sys.path = [""]
+
+
+from panda3d.core import loadPrcFileData
+from distutils.util import strtobool
+import os
+
+if strtobool(os.getenv("USE_LIVE_SERVER")):
+    loadPrcFileData("Override Client Config",
+                    "game-server unite.sunrise.games:6667")
 
 from toontown.launcher.QuickLauncher import QuickLauncher
 launcher = QuickLauncher()
-launcher.notify.info('Reached end of StartQuickLauncher.py.')
+launcher.notify.info("Reached end of StartQuickLauncher.py.")

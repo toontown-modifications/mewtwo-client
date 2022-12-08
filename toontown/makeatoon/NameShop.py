@@ -32,7 +32,6 @@ ServerDialogTimeout = 3.0
 class NameShop(StateData.StateData):
     notify = DirectNotifyGlobal.directNotify.newCategory('NameShop')
     notify.setDebug(True)
-
     def __init__(self, makeAToon, doneEvent, avList, index, isPaid):
         StateData.StateData.__init__(self, doneEvent)
         self.makeAToon = makeAToon

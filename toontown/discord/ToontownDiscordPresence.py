@@ -2,6 +2,7 @@ from pypresence import Presence
 from direct.directnotify.DirectNotifyGlobal import directNotify
 import time
 
+
 class ToontownDiscordPresence:
     notify = directNotify.newCategory('ToontownDiscordPresence')
     notify.setInfo(True)
@@ -43,4 +44,4 @@ class ToontownDiscordPresence:
 
         # Send the update to the RPC client.
         self.notify.debug(f'Updating RPC with data: {data}')
-        self.rpcClient.update(**data, buttons = buttons)
+        self.rpcClient.update(**data, buttons=buttons)
