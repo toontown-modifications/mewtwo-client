@@ -4,4 +4,4 @@ cd ..
 export LOGIN_TOKEN=dev
 export USE_LIVE_SERVER=false
 
-python3 -m toontown.launcher.QuickStartLauncher
+/usr/local/bin/python3.9 -m toontown.launcher.QuickStartLauncher
