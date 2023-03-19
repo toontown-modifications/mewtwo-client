@@ -328,14 +328,14 @@ class DistributedPartyDanceActivityBase(DistributedPartyActivity):
 
     def _requestToonState(self, toonId, state, anim):
         if toonId in self.dancingToonFSMs:
-            state = ToonDancingStates.getString(state)
+            state = ToonDancingStates(state).name
             curState = self.dancingToonFSMs[toonId].getCurrentOrNextState()
             try:
                 self.dancingToonFSMs[toonId].request(state, anim)
             except FSM.RequestDenied:
                 self.notify.warning('could not go from state=%s to state %s' % (curState, state))
 
-            if state == ToonDancingStates.getString(ToonDancingStates.Cleanup):
+            if state == ToonDancingStates(ToonDancingStates.Cleanup).name:
                 self.notify.debug('deleting this fsm %s' % self.dancingToonFSMs[toonId])
                 del self.dancingToonFSMs[toonId]
                 if self.localToonDanceSequence:
