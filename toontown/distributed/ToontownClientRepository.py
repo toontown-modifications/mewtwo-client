@@ -3,7 +3,6 @@ from direct.distributed.ClockDelta import *
 from direct.gui.DirectGui import *
 from direct.interval.IntervalGlobal import ivalMgr
 from direct.distributed.PyDatagram import PyDatagram
-from direct.distributed.PyDatagramIterator import PyDatagramIterator
 from direct.fsm import State
 from direct.showbase.PythonUtil import Functor, ScratchPad
 from otp.avatar import Avatar
@@ -555,18 +554,15 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
 
     def handleCloseShard(self, msgType, di):
         if msgType == CLIENT_CREATE_OBJECT_REQUIRED:
-            di2 = PyDatagramIterator(di)
-            parentId = di2.getUint32()
+            parentId = di.getUint32()
             if self._doIdIsOnCurrentShard(parentId):
                 return
         elif msgType == CLIENT_CREATE_OBJECT_REQUIRED_OTHER:
-            di2 = PyDatagramIterator(di)
-            parentId = di2.getUint32()
+            parentId = di.getUint32()
             if self._doIdIsOnCurrentShard(parentId):
                 return
         elif msgType == CLIENT_OBJECT_UPDATE_FIELD:
-            di2 = PyDatagramIterator(di)
-            doId = di2.getUint32()
+            doId = di.getUint32()
             if self._doIdIsOnCurrentShard(doId):
                 return
         self.handleMessageType(msgType, di)
