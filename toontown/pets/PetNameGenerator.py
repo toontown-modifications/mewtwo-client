@@ -30,6 +30,7 @@ class PetNameGenerator:
             else:
                 searchPath.appendDirectory(Filename.fromOsSpecific(os.path.expandvars('toontown/src/configfiles')))
             searchPath.appendDirectory(Filename('.'))
+            searchPath.appendDirectory(Filename('resources/phase_3/etc'))
         filename = Filename(TTLocalizer.PetNameMaster)
         found = vfs.resolveFilename(filename, searchPath)
         if not found:
@@ -37,6 +38,7 @@ class PetNameGenerator:
         input = StreamReader(vfs.openReadFile(filename, 1), 1)
         currentLine = input.readline()
         while currentLine:
+            currentLine = currentLine.decode()
             if currentLine.lstrip()[0:1] != '#':
                 a1 = currentLine.find('*')
                 a2 = currentLine.find('*', a1 + 1)
