@@ -48,6 +48,8 @@ class OTPClientRepository(ClientRepositoryBase):
 
     def __init__(self, serverVersion, launcher = None, playGame = None):
         ClientRepositoryBase.__init__(self)
+        self.setVerbose(True)
+
         self.handler = None
         self.launcher = launcher
         base.launcher = launcher
