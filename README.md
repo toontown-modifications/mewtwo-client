@@ -12,7 +12,7 @@ You can install Panda3D SDK through the 32-bit (x86) or 64-bit (x86_64) installe
 
 [Panda3D SDK for Windows (Python 3.9, x86)](https://drive.google.com/file/d/1sF4QLDl6h5ZRX-LMAftslDNpkJ-pF9SR/view?usp=sharing)
 
-[Panda3D SDK for Windows (Python 3.10, x86_64)](https://download.alt.sunrise.games/binaries/Panda3D-1.11.0-py3.10-x64_otp.exe)
+[Panda3D SDK for Windows (Python 3.11, x86_64)](https://download.alt.sunrise.games/binaries/Panda3D-1.11.0-py3.11-x64_otp.exe)
 
 If you install Panda3D outside the default directory (or use the x86 installer), you may have to change the `PPYTHON_PATH` file located in the root directory and change it to your install directory.
 
