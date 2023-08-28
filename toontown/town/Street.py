@@ -14,6 +14,8 @@ from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 from toontown.toon.Toon import teleportDebug
 from direct.interval.IntervalGlobal import *
+import time
+
 visualizeZones = ConfigVariableBool('visualize-zones', 0).value
 
 class Street(BattlePlace.BattlePlace):
