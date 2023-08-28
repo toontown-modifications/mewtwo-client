@@ -22,6 +22,8 @@ from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase.ToonBaseGlobal import base
 
+import time
+
 
 class Hood(StateData):
     notify = directNotify.newCategory('Hood')
