@@ -1996,7 +1996,7 @@ class Toon(Avatar.Avatar, ToonHead):
     def exitSitStart(self):
         self.playingAnim = 'neutral'
         if self.track != None:
-            self.track.finish()
+            self.track.pause()
             DelayDelete.cleanupDelayDeletes(self.track)
             self.track = None
         Emote.globalEmote.releaseBody(self)
