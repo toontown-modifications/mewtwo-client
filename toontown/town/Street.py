@@ -134,6 +134,19 @@ class Street(BattlePlace.BattlePlace):
         self.fsm.request(requestStatus['how'], [requestStatus])
         if base.cr.wantStreetSign:
             self.replaceStreetSignTextures()
+        if base.wantDiscordPresence and base.haveDiscordOpen:
+            shardName = base.cr.getShardName(base.localAvatar.defaultShard)
+            streetName = ZoneUtil.getStreetName(ZoneUtil.getBranchZone(self.zoneId))
+
+            activity = {
+                'details': f'{base.localAvatar.getName()} ({base.localAvatar.getHp()} / {base.localAvatar.getMaxHp()})',
+                'state': f'{streetName}',
+                'start': int(time.time()),
+                'large_text': shardName,
+                'large_image': 'sunrise_games' # TODO
+            }
+
+            base.cr.discordPresence.updatePresence(activity)
         return
 
     def exit(self, visibilityFlag = 1):
@@ -350,14 +363,7 @@ class Street(BattlePlace.BattlePlace):
                 if newZoneId != None:
                     self.loader.zoneDict[newZoneId].setColor(0, 0, 1, 1, 100)
             if newZoneId != None:
-                if not __astron__:
-                    base.cr.sendSetZoneMsg(newZoneId)
-                else:
-                    visZones = [ZoneUtil.getBranchZone(newZoneId)]
-                    visZones += [self.loader.node2zone[x] for x in self.loader.nodeDict[newZoneId]]
-                    if newZoneId not in visZones:
-                        visZones.append(newZoneId)
-                    base.cr.sendSetZoneMsg(newZoneId, visZones)
+                base.cr.sendSetZoneMsg(newZoneId)
                 self.notify.debug('Entering Zone %d' % newZoneId)
             self.zoneId = newZoneId
         geom = base.cr.playGame.getPlace().loader.geom

@@ -94,19 +94,7 @@ class BattlePlace(Place.Place):
     def doEnterZone(self, newZoneId):
         if newZoneId != self.zoneId:
             if newZoneId != None:
-                if __astron__:
-                    # NOTE: This gets generated during the Quiet Zone transition.
-                    # See: toontown/hood/QuietZoneState.py (getCogHQViszones)
-                    visList = base.cr.playGame.getPlace().loader.zoneVisDict[newZoneId]
-
-                    if newZoneId not in visList:
-                        visList.append(newZoneId)
-                    if ZoneUtil.getBranchZone(newZoneId) not in visList:
-                        visList.append(ZoneUtil.getBranchZone(newZoneId))
-
-                    base.cr.sendSetZoneMsg(newZoneId, visList)
-                else:
-                    base.cr.sendSetZoneMsg(newZoneId)
+                base.cr.sendSetZoneMsg(newZoneId)
                 self.notify.debug('Entering Zone %d' % newZoneId)
             self.zoneId = newZoneId
         return
