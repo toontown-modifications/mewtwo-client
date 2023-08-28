@@ -1592,7 +1592,7 @@ DG = 5
 BR = 6
 OZ = 7
 DL = 8
-DefaultWantNewsPageSetting = 0
+DefaultWantNewsPageSetting = 1
 gmMagicWordList = ['restock',
  'restockUber',
  'autoRestock',
