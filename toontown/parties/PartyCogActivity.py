@@ -6,8 +6,8 @@ from direct.interval.ProjectileInterval import ProjectileInterval
 from direct.distributed.ClockDelta import globalClockDelta
 from direct.showbase.PythonUtil import bound, lerp
 from direct.showbase.DirectObject import DirectObject
-from pandac.PandaModules import NodePath, Point3, TextNode
-from pandac.PandaModules import CollisionSphere, CollisionNode, CollisionHandlerEvent
+from panda3d.core import NodePath, Point3, TextNode
+from panda3d.core import CollisionSphere, CollisionNode, CollisionHandlerEvent
 from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase.ToontownTimer import ToontownTimer
@@ -97,8 +97,7 @@ class PartyCogActivity(DirectObject):
         signLocator = self.arena.find('**/eventSign_locator')
         self.activity.sign.setPos(signLocator.getPos(self.root))
         if self.texture:
-            textureAlpha = self.texture[:-4] + '_a.rgb'
-            reskinTexture = loader.loadTexture(self.texture, textureAlpha)
+            reskinTexture = loader.loadTexture(self.texture)
             self.arena.find('**/center_grp').setTexture(reskinTexture, 100)
             self.arena.find('**/leftSide_grp').setTexture(reskinTexture, 100)
             self.arena.find('**/rightSide_grp').setTexture(reskinTexture, 100)

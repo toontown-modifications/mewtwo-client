@@ -1,8 +1,7 @@
 import random
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.interval.FunctionInterval import Wait, Func
 from direct.interval.MetaInterval import Sequence, Parallel
-from direct.showbase.PythonUtil import lerp
 from direct.fsm import FSM
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownGlobals
@@ -18,7 +17,6 @@ from toontown.parties.KeyCodes import KeyCodes
 from toontown.parties.KeyCodesGui import KeyCodesGui
 from toontown.parties import PartyGlobals
 from enum import IntEnum
-
 DANCE_FLOOR_COLLISION = 'danceFloor_collision'
 DanceViews = IntEnum('DanceViews', ('Normal', 'Dancing', 'Isometric'), start=0)
 
@@ -328,14 +326,14 @@ class DistributedPartyDanceActivityBase(DistributedPartyActivity):
 
     def _requestToonState(self, toonId, state, anim):
         if toonId in self.dancingToonFSMs:
-            state = ToonDancingStates(state).name
+            state = ToonDancingStates.getString(state)
             curState = self.dancingToonFSMs[toonId].getCurrentOrNextState()
             try:
                 self.dancingToonFSMs[toonId].request(state, anim)
             except FSM.RequestDenied:
                 self.notify.warning('could not go from state=%s to state %s' % (curState, state))
 
-            if state == ToonDancingStates(ToonDancingStates.Cleanup).name:
+            if state == ToonDancingStates.getString(ToonDancingStates.Cleanup):
                 self.notify.debug('deleting this fsm %s' % self.dancingToonFSMs[toonId])
                 del self.dancingToonFSMs[toonId]
                 if self.localToonDanceSequence:

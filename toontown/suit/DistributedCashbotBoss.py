@@ -18,7 +18,9 @@ from toontown.battle import RewardPanel
 from toontown.distributed import DelayDelete
 from toontown.chat import ResistanceChat
 from toontown.coghq import CogDisguiseGlobals
-from pandac.PandaModules import *
+from panda3d.core import *
+from panda3d.direct import ShowInterval
+from panda3d.physics import *
 from panda3d.otp import *
 import random
 import math
@@ -481,6 +483,14 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
                 track.append(toon.posHprInterval(0.2, pos, hpr))
 
         return track
+    
+    def moveLocalToonToBattleThreePos(self):
+        # This exists because when skipping to the crane round via a magic word, the toon gets
+        # teleported to the center, taking damage in the progress.  This is done to remedy that.
+        i = self.involvedToons.index(localAvatar.doId)
+        if not i:
+            i = 0
+        localAvatar.setPosHpr(*ToontownGlobals.CashbotToonsBattleThreeStartPosHpr[i])
 
     def makeBossFleeMovie(self):
         hadEnough = TTLocalizer.CashbotBossHadEnough
@@ -758,6 +768,7 @@ class DistributedCashbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.evWalls.unstash()
         self.midVault.stash()
         self.__hideResistanceToon()
+        self.moveLocalToonToBattleThreePos()
         localAvatar.setCameraFov(ToontownGlobals.BossBattleCameraFov)
         self.generateHealthBar()
         self.updateHealthBar()

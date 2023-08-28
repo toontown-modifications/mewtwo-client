@@ -1,5 +1,6 @@
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
+from panda3d.physics import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
 from direct.distributed import DistributedObject
@@ -111,7 +112,7 @@ class SwingVine(NodePath):
         self.link1 = self.links[-2][0]
         self.rope = self.makeSpline()
         self.rope.reparentTo(self.root)
-        myTexture = loader.loadTexture('phase_4/maps/swinging_vine.jpg')
+        myTexture = loader.loadTexture('phase_4/maps/swinging_vine.png')
         gameAssets = loader.loadModel('phase_4/models/minigames/vine_game')
         vine = gameAssets.find('**/vine1')
         self.cableTex = vine.findTexture('*')

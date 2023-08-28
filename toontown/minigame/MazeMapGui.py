@@ -1,13 +1,12 @@
-from panda3d.core import CardMaker, NodePath, PNMImage, Texture, Vec2
 from direct.gui.DirectGui import DirectFrame, DGG
+from panda3d.core import Vec2, VBase4F
+from panda3d.core import CardMaker, NodePath
+from panda3d.core import Texture, PNMImage
 from enum import IntEnum
-
 DEFAULT_MASK_RESOLUTION = 32
 DEFAULT_RADIUS_RATIO = 0.05
 MAP_RESOLUTION = 320
-
-MazeRevealType = IntEnum('MazeRevealType', ('SmoothCircle', 'HardCircle', 'Square'))
-
+MazeRevealType = IntEnum('MazeRevealType', ('SmoothCircle', 'HardCircle', 'Square'), start=0)
 MAZE_REVEAL_TYPE = MazeRevealType.SmoothCircle
 
 class MazeMapGui(DirectFrame):

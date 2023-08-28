@@ -1,21 +1,15 @@
-from enum import IntEnum
-from panda3d.core import Point3, VBase4
 from direct.directnotify import DirectNotifyGlobal
 from toontown.toonbase import TTLocalizer
+from panda3d.core import *
 from .KartShopGlobals import *
-
+from enum import IntEnum
 if (__debug__):
     import pdb
-
 import copy
-
-KartDNA = IntEnum('KartDNA', ('bodyType', 'bodyColor', 'accColor', 'ebType', 'spType', 'fwwType', 'bwwType', 'rimsType', 'decalType'), start = 0)
-
+KartDNA = IntEnum('KartDNA', ('bodyType', 'bodyColor', 'accColor', 'ebType', 'spType', 'fwwType', 'bwwType', 'rimsType', 'decalType'), start=0)
 InvalidEntry = -1
-
-KartInfo = IntEnum('KartInfo', ('name', 'model', 'cost', 'viewDist', 'decalId', 'LODmodel1', 'LODmodel2'), start = 0)
-AccInfo = IntEnum('AccInfo', ('name', 'model', 'cost', 'texCard', 'attach'), start = 0)
-
+KartInfo = IntEnum('KartInfo', ('name', 'model', 'cost', 'viewDist', 'decalId', 'LODmodel1', 'LODmodel2'), start=0)
+AccInfo = IntEnum('AccInfo', ('name', 'model', 'cost', 'texCard', 'attach'), start=0)
 kNames = TTLocalizer.KartDNA_KartNames
 KartDict = {0: (kNames[0],
      'phase_6/models/karting/Kart1_Final',
@@ -474,13 +468,16 @@ AccessoryTypeNameDict = [None,
 def checkNumFieldsValidity(numFields):
     return KartDNA.decalType == numFields - 1
 
+
 def checkKartFieldValidity(field):
     if field < KartDNA.bodyType or field > KartDNA.decalType:
         return 0
     return 1
 
+
 def getNumFields():
     return KartDNA.decalType + 1
+
 
 def getKartModelPath(kartType, lodLevel = 0):
     if lodLevel == 1:
@@ -489,14 +486,18 @@ def getKartModelPath(kartType, lodLevel = 0):
         return KartDict.get(kartType)[KartInfo.LODmodel2]
     return KartDict.get(kartType)[KartInfo.model]
 
+
 def getKartViewDist(kartType):
     return KartDict.get(kartType)[KartInfo.viewDist]
+
 
 def getDecalId(kartType):
     return KartDict.get(kartType)[KartInfo.decalId]
 
+
 def getAccessory(accId):
     return AccessoryDict.get(accId)[KartInfo.model]
+
 
 def getAccessoryAttachNode(accId):
     accInfo = AccessoryDict.get(accId)
@@ -504,11 +505,13 @@ def getAccessoryAttachNode(accId):
         return accInfo[4]
     return None
 
+
 def getTexCardNode(accId):
     accInfo = AccessoryDict.get(accId)
     if len(accInfo) <= 5:
         return accInfo[3]
     return None
+
 
 def checkKartDNAValidity(dna):
     if not checkNumFieldsValidity(len(dna)):
@@ -528,11 +531,14 @@ def checkKartDNAValidity(dna):
 
     return 1
 
+
 def getDefaultColor():
     return VBase4(1, 1, 1, 1)
 
+
 def getDefaultRim():
     return AccessoryTypeDict[KartDNA.rimsType][0]
+
 
 def getDefaultAccessory(category):
     if category in [KartDNA.bodyColor, KartDNA.accColor]:
@@ -542,18 +548,22 @@ def getDefaultAccessory(category):
     else:
         return InvalidEntry
 
+
 def getAccessoryItemList(accessoryType):
     return [ AccessoryDict[itemId] for itemId in AccessoryTypeDict[accessoryType] ]
+
 
 def getKartTypeInfo(type):
     if type in list(KartDict.keys()):
         return KartDict[type]
     return InvalidEntry
 
+
 def getAccessoryInfo(index):
     if index in list(AccessoryDict.keys()):
         return AccessoryDict[index]
     return InvalidEntry
+
 
 def getAccessoryType(accessoryId):
     for key in list(AccessoryTypeDict.keys()):
@@ -561,6 +571,7 @@ def getAccessoryType(accessoryId):
             return key
 
     return InvalidEntry
+
 
 def getAccessoryDictFromOwned(accessoryOwnedList, pType = -1):
     accessDict = copy.deepcopy(AccessoryTypeDict)
@@ -574,6 +585,7 @@ def getAccessoryDictFromOwned(accessoryOwnedList, pType = -1):
         return accessDict[pType]
     else:
         return accessDict
+
 
 def getAccessDictByType(accessoryOwnedList):
     accessDict = {}
@@ -589,14 +601,17 @@ def getAccessDictByType(accessoryOwnedList):
         print('KartDNA: getAccessDictByType: bad accessory list: ', accessoryOwnedList)
     return accessDict
 
+
 def getKartCost(kartID):
     if kartID in KartDict:
         return KartDict[kartID][KartInfo.cost]
     else:
         return 'key error'
 
+
 def getAccCost(accID):
     return AccessoryDict[accID][AccInfo.cost]
+
 
 def getAccName(accID):
     try:

@@ -8,6 +8,7 @@ from .ToonHead import *
 from panda3d.core import *
 from panda3d.otp import *
 from direct.interval.IntervalGlobal import *
+from panda3d.direct import ShowInterval, HideInterval
 from direct.directnotify import DirectNotifyGlobal
 from toontown.toonbase import ToontownGlobals
 from otp.otpbase import OTPLocalizer
@@ -1165,7 +1166,7 @@ class Toon(Avatar.Avatar, ToonHead):
             for geom in geoms:
                 texName = ToonDNA.ShoesTextures[shoes[1]]
                 if self.style.legs == 'l' and shoes[0] == 3:
-                    texName = texName[:-4] + 'LL.jpg'
+                    texName = texName[:-4] + 'LL.png'
                 tex = loader.loadTexture(texName, okMissing=True)
                 if tex is None:
                     self.sendLogSuspiciousEvent('failed to load texture %s' % texName)

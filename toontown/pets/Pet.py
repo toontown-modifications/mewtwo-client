@@ -1,5 +1,4 @@
-from enum import IntEnum
-from panda3d.core import Point3, Texture
+from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
 from direct.fsm.ClassicFSM import *
@@ -12,10 +11,8 @@ from toontown.pets import PetDNA
 from .PetDNA import HeadParts, EarParts, NoseParts, TailParts, BodyTypes, BodyTextures, AllPetColors, getColors, ColorScales, PetEyeColors, EarTextures, TailTextures, getFootTexture, getEarTexture, GiraffeTail, LeopardTail, PetGenders
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownGlobals
-from direct.showbase import PythonUtil
+from enum import IntEnum
 import random
-from panda3d.otp import NametagGroup, CFSpeech, CFThought
-
 Component2IconDict = {'boredom': 'Bored',
  'restlessness': None,
  'playfulness': 'Play',
@@ -32,9 +29,7 @@ Component2IconDict = {'boredom': 'Bored',
 class Pet(Avatar.Avatar):
     notify = DirectNotifyGlobal.directNotify.newCategory('Pet')
     SerialNum = 0
-
-    Interactions = IntEnum('Interactions', ('SCRATCH', 'BEG', 'EAT', 'NEUTRAL'))
-
+    Interactions = IntEnum('Interactions', ('SCRATCH', 'BEG', 'EAT', 'NEUTRAL'), start=0)
     InteractAnims = {Interactions.SCRATCH: ('toPet', 'pet', 'fromPet'),
      Interactions.BEG: ('toBeg', 'beg', 'fromBeg'),
      Interactions.EAT: ('eat', 'swallow', 'neutral'),
@@ -252,11 +247,11 @@ class Pet(Avatar.Avatar):
             self.rightHighlight.hide()
             self.leftHighlight.hide()
         if self.style[8]:
-            self.eyesOpenTexture = loader.loadTexture('phase_4/maps/BeanEyeBoys2.jpg', 'phase_4/maps/BeanEyeBoys2_a.rgb')
-            self.eyesClosedTexture = loader.loadTexture('phase_4/maps/BeanEyeBoysBlink.jpg', 'phase_4/maps/BeanEyeBoysBlink_a.rgb')
+            self.eyesOpenTexture = loader.loadTexture('phase_4/maps/BeanEyeBoys2.png')
+            self.eyesClosedTexture = loader.loadTexture('phase_4/maps/BeanEyeBoysBlink.png')
         else:
-            self.eyesOpenTexture = loader.loadTexture('phase_4/maps/BeanEyeGirlsNew.jpg', 'phase_4/maps/BeanEyeGirlsNew_a.rgb')
-            self.eyesClosedTexture = loader.loadTexture('phase_4/maps/BeanEyeGirlsBlinkNew.jpg', 'phase_4/maps/BeanEyeGirlsBlinkNew_a.rgb')
+            self.eyesOpenTexture = loader.loadTexture('phase_4/maps/BeanEyeGirlsNew.png')
+            self.eyesClosedTexture = loader.loadTexture('phase_4/maps/BeanEyeGirlsBlinkNew.png')
         self.eyesOpenTexture.setMinfilter(Texture.FTLinear)
         self.eyesOpenTexture.setMagfilter(Texture.FTLinear)
         self.eyesClosedTexture.setMinfilter(Texture.FTLinear)

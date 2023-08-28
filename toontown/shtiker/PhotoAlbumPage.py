@@ -1,7 +1,7 @@
-from pandac.PandaModules import *
+from panda3d.core import *
 from . import ShtikerPage
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from panda3d.core import *
 from toontown.toonbase import TTLocalizer
 import os
 from toontown.toonbase import ToontownGlobals
@@ -182,7 +182,7 @@ class PhotoAlbumPage(ShtikerPage.ShtikerPage):
         files = os.listdir('.')
         photos = []
         for fileName in files:
-            if fileName[0:10] == 'screenshot' and fileName[-4:] == '.jpg':
+            if fileName[0:10] == 'screenshot' and fileName[-4:] == '.png':
                 photos.append(fileName)
 
         return photos

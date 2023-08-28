@@ -1,7 +1,6 @@
 from direct.directnotify import DirectNotifyGlobal
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
-from direct.showbase import PythonUtil
+from panda3d.core import *
 from direct.task import Task
 from toontown.fishing.FishPhoto import DirectRegion
 from toontown.shtiker.ShtikerPage import ShtikerPage
@@ -9,11 +8,9 @@ from toontown.toonbase import ToontownGlobals, TTLocalizer
 from .FishPage import FishingTrophy
 from toontown.golf import GolfGlobals
 from enum import IntEnum
-
 if (__debug__):
     import pdb
-
-PageMode = IntEnum('PageMode', ('Records', 'Trophy'))
+PageMode = IntEnum('PageMode', ('Records', 'Trophy'), start=0)
 
 class GolfPage(ShtikerPage):
     notify = DirectNotifyGlobal.directNotify.newCategory('GolfPage')

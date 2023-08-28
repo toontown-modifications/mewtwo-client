@@ -14,7 +14,6 @@ from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 from toontown.toon.Toon import teleportDebug
 from direct.interval.IntervalGlobal import *
-import time
 visualizeZones = ConfigVariableBool('visualize-zones', 0).value
 
 class Street(BattlePlace.BattlePlace):
@@ -65,7 +64,7 @@ class Street(BattlePlace.BattlePlace):
          State.State('WaitForBattle', self.enterWaitForBattle, self.exitWaitForBattle, ['battle', 'walk']),
          State.State('battle', self.enterBattle, self.exitBattle, ['walk', 'teleportOut', 'died']),
          State.State('doorIn', self.enterDoorIn, self.exitDoorIn, ['walk']),
-         State.State('doorOut', self.enterDoorOut, self.exitDoorOut, ['walk']),
+         State.State('doorOut', self.enterDoorOut, self.exitDoorOut, ['walk', 'stopped']),
          State.State('elevatorIn', self.enterElevatorIn, self.exitElevatorIn, ['walk']),
          State.State('elevator', self.enterElevator, self.exitElevator, ['walk']),
          State.State('trialerFA', self.enterTrialerFA, self.exitTrialerFA, ['trialerFAReject', 'DFA']),
@@ -133,21 +132,8 @@ class Street(BattlePlace.BattlePlace):
         self.enterZone(requestStatus['zoneId'])
         self.tunnelOriginList = base.cr.hoodMgr.addLinkTunnelHooks(self, self.loader.nodeList, self.zoneId)
         self.fsm.request(requestStatus['how'], [requestStatus])
-        self.replaceStreetSignTextures()
-
-        if base.wantDiscordPresence and base.haveDiscordOpen:
-            shardName = base.cr.getShardName(base.localAvatar.defaultShard)
-            streetName = ZoneUtil.getStreetName(ZoneUtil.getBranchZone(self.zoneId))
-
-            activity = {
-                'details': f'{base.localAvatar.getName()} ({base.localAvatar.getHp()} / {base.localAvatar.getMaxHp()})',
-                'state': f'{streetName}',
-                'start': int(time.time()),
-                'large_text': shardName,
-                'large_image': 'sunrise_games' # TODO
-            }
-
-            base.cr.discordPresence.updatePresence(activity)
+        if base.cr.wantStreetSign:
+            self.replaceStreetSignTextures()
         return
 
     def exit(self, visibilityFlag = 1):
@@ -364,7 +350,14 @@ class Street(BattlePlace.BattlePlace):
                 if newZoneId != None:
                     self.loader.zoneDict[newZoneId].setColor(0, 0, 1, 1, 100)
             if newZoneId != None:
-                base.cr.sendSetZoneMsg(newZoneId)
+                if not __astron__:
+                    base.cr.sendSetZoneMsg(newZoneId)
+                else:
+                    visZones = [ZoneUtil.getBranchZone(newZoneId)]
+                    visZones += [self.loader.node2zone[x] for x in self.loader.nodeDict[newZoneId]]
+                    if newZoneId not in visZones:
+                        visZones.append(newZoneId)
+                    base.cr.sendSetZoneMsg(newZoneId, visZones)
                 self.notify.debug('Entering Zone %d' % newZoneId)
             self.zoneId = newZoneId
         geom = base.cr.playGame.getPlace().loader.geom
@@ -388,13 +381,11 @@ class Street(BattlePlace.BattlePlace):
             streetSign = base.cr.streetSign
             signTexturePath = streetSign.StreetSignBaseDir + '/' + streetSign.StreetSignFileName
             loaderTexturePath = Filename(str(signTexturePath))
-            alphaPath = 'phase_4/maps/tt_t_ara_gen_tunnelAheadSign_a.rgb'
             inDreamland = False
             if place.zoneId and ZoneUtil.getCanonicalHoodId(place.zoneId) == ToontownGlobals.DonaldsDreamland:
                 inDreamland = True
-            alphaPath = 'phase_4/maps/tt_t_ara_gen_tunnelAheadSign_a.rgb'
             if Filename(signTexturePath).exists():
-                signTexture = loader.loadTexture(loaderTexturePath, alphaPath)
+                signTexture = loader.loadTexture(loaderTexturePath)
             for sign in signs:
                 if Filename(signTexturePath).exists():
                     sign.setTexture(signTexture, 1)

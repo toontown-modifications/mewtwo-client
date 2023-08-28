@@ -3,7 +3,6 @@ from otp.otpbase.OTPGlobals import *
 from direct.showbase.PythonUtil import invertDict
 from panda3d.core import BitMask32, Vec4
 from enum import IntEnum
-
 MapHotkeyOn = 'alt'
 MapHotkeyOff = 'alt-up'
 MapHotkey = 'alt'
@@ -1593,7 +1592,7 @@ DG = 5
 BR = 6
 OZ = 7
 DL = 8
-DefaultWantNewsPageSetting = 1
+DefaultWantNewsPageSetting = 0
 gmMagicWordList = ['restock',
  'restockUber',
  'autoRestock',
@@ -1611,10 +1610,11 @@ gmMagicWordList = ['restock',
  'who',
  'who all']
 NewsPageScaleAdjust = 0.85
-
-AnimPropTypes = IntEnum('AnimPropTypes', ('Unknown', 'Hydrant', 'Mailbox', 'Trashcan'), start = -1)
-EmblemTypes = IntEnum('EmblemTypes', ('Silver', 'Gold'), start = 0)
-
+AnimPropTypes = IntEnum('AnimPropTypes', ('Unknown',
+ 'Hydrant',
+ 'Mailbox',
+ 'Trashcan'), start=-1)
+EmblemTypes = IntEnum('EmblemTypes', ('Silver', 'Gold'), start=0)
 NumEmblemTypes = 2
 DefaultMaxBankMoney = 12000
 DefaultBankItemId = 1350
@@ -1671,21 +1671,3 @@ AV_TOUCH_CHECK_DIST_Z = 5.0
 AV_TOUCH_CHECK_TIMELIMIT_CL = 0.002
 AV_TOUCH_COUNT_LIMIT = 5
 AV_TOUCH_COUNT_TIME = 300
-
-zoneMap = {
-    ToontownCentral: 'toontown_central',
-    DonaldsDock: 'donalds_dock',
-    DaisyGardens: 'daisys_garden' ,
-    MinniesMelodyland: 'minnies_melodyland',
-    TheBrrrgh: 'the_brrrgh',
-    DonaldsDreamland: 'donalds_dreamland',
-    SellbotHQ: 'sellbot_hq'
-}
-
-def getDiscordImage(zoneId):
-    if zoneId in zoneMap:
-        # Use the associated image.
-        return zoneMap[zoneId]
-
-    # Use the default icon.
-    return 'sunrise_games'

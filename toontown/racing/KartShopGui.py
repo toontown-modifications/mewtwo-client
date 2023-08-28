@@ -1,10 +1,10 @@
 if __name__ == '__main__':
     from direct.directbase import DirectStart
-
-from pandac.PandaModules import *
+from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.gui.DirectGui import *
-from direct.showbase import DirectObject, PythonUtil
+from panda3d.core import *
+from direct.showbase import DirectObject
 from toontown.toonbase import ToontownGlobals, TTLocalizer
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownTimer
@@ -14,20 +14,17 @@ from toontown.shtiker.KartPage import KartViewer
 from .KartDNA import *
 from toontown.toontowngui.TeaserPanel import TeaserPanel
 from enum import IntEnum
-
 if (__debug__):
     import pdb
-
-MENUS = IntEnum('MENUS', ('MainMenu, BuyKart, BuyAccessory, ReturnKart, ConfirmBuyAccessory, ConfirmBuyKart, BoughtKart, BoughtAccessory, TeaserPanel'))
-MM_OPTIONS = IntEnum('MM_OPTIONS', ('Cancel, BuyAccessory, BuyKart'), start = -1)
-BK_OPTIONS = IntEnum('BK_OPTIONS', ('Cancel, BuyKart'), start = -1)
-BA_OPTIONS = IntEnum('BA_OPTIONS', ('Cancel, BuyAccessory'), start = -1)
-RK_OPTIONS = IntEnum('RK_OPTIONS', ('Cancel, ReturnKart'), start = -1)
-CBK_OPTIONS = IntEnum('CBK_OPTIONS', ('Cancel, BuyKart'), start = -1)
-CBA_OPTIONS = IntEnum('CBA_OPTIONS', ('Cancel, BuyAccessory'), start = -1)
-BTK_OPTIONS = IntEnum('BTK_OPTIONS', ('Ok'), start = -1)
-BTA_OPTIONS = IntEnum('BTA_OPTIONS', ('Ok'), start = -1)
-
+MENUS = IntEnum('MENUS', ('MainMenu, BuyKart, BuyAccessory, ReturnKart, ConfirmBuyAccessory, ConfirmBuyKart, BoughtKart, BoughtAccessory, TeaserPanel'), start=0)
+MM_OPTIONS = IntEnum('MM_OPTIONS', ('Cancel, BuyAccessory, BuyKart'), start=-1)
+BK_OPTIONS = IntEnum('BK_OPTIONS', ('Cancel, BuyKart'), start=-1)
+BA_OPTIONS = IntEnum('BA_OPTIONS', ('Cancel, BuyAccessory'), start=-1)
+RK_OPTIONS = IntEnum('RK_OPTIONS', ('Cancel, ReturnKart'), start=-1)
+CBK_OPTIONS = IntEnum('CBK_OPTIONS', ('Cancel, BuyKart'), start=-1)
+CBA_OPTIONS = IntEnum('CBA_OPTIONS', ('Cancel, BuyAccessory'), start=-1)
+BTK_OPTIONS = IntEnum('BTK_OPTIONS', ('Ok'), start=-1)
+BTA_OPTIONS = IntEnum('BTA_OPTIONS', ('Ok'), start=-1)
 KS_TEXT_SIZE_BIG = TTLocalizer.KSGtextSizeBig
 KS_TEXT_SIZE_SMALL = TTLocalizer.KSGtextSizeSmall
 
@@ -691,15 +688,15 @@ class KartShopGuiMgr(DirectObject.DirectObject, object):
              KartDNA.fwwType,
              KartDNA.bwwType]:
                 texNodePath = getTexCardNode(accID)
-                tex = loader.loadTexture('phase_6/maps/%s.jpg' % texNodePath, 'phase_6/maps/%s_a.rgb' % texNodePath)
+                tex = loader.loadTexture('phase_6/maps/%s.png' % texNodePath)
             elif accType == KartDNA.rimsType:
                 if accID == InvalidEntry:
                     texNodePath = getTexCardNode(getDefaultRim())
                 else:
                     texNodePath = getTexCardNode(accID)
-                tex = loader.loadTexture('phase_6/maps/%s.jpg' % texNodePath, 'phase_6/maps/%s_a.rgb' % texNodePath)
+                tex = loader.loadTexture('phase_6/maps/%s.png' % texNodePath)
             elif accType in [KartDNA.bodyColor, KartDNA.accColor]:
-                tex = loader.loadTexture('phase_6/maps/Kartmenu_paintbucket.jpg', 'phase_6/maps/Kartmenu_paintbucket_a.rgb')
+                tex = loader.loadTexture('phase_6/maps/Kartmenu_paintbucket.png')
                 if accID == InvalidEntry:
                     self.kartView.component('geom0').setColorScale(getDefaultColor())
                 else:
@@ -707,9 +704,9 @@ class KartShopGuiMgr(DirectObject.DirectObject, object):
             elif accType == KartDNA.decalType:
                 kartDecal = getDecalId(base.localAvatar.getKartBodyType())
                 texNodePath = getTexCardNode(accID)
-                tex = loader.loadTexture('phase_6/maps/%s.jpg' % texNodePath % kartDecal, 'phase_6/maps/%s_a.rgb' % texNodePath % kartDecal)
+                tex = loader.loadTexture('phase_6/maps/%s.png' % texNodePath % kartDecal)
             else:
-                tex = loader.loadTexture('phase_6/maps/NoAccessoryIcon3.jpg', 'phase_6/maps/NoAccessoryIcon3_a.rgb')
+                tex = loader.loadTexture('phase_6/maps/NoAccessoryIcon3.png')
             tex.setMinfilter(Texture.FTLinearMipmapLinear)
             self.kartView.component('geom0').setTexture(tex, 1)
             self.initialize = True
@@ -751,15 +748,15 @@ class KartShopGuiMgr(DirectObject.DirectObject, object):
              KartDNA.fwwType,
              KartDNA.bwwType]:
                 texNodePath = getTexCardNode(accID)
-                tex = loader.loadTexture('phase_6/maps/%s.jpg' % texNodePath, 'phase_6/maps/%s_a.rgb' % texNodePath)
+                tex = loader.loadTexture('phase_6/maps/%s.png' % texNodePath)
             elif accType == KartDNA.rimsType:
                 if accID == InvalidEntry:
                     texNodePath = getTexCardNode(getDefaultRim())
                 else:
                     texNodePath = getTexCardNode(accID)
-                tex = loader.loadTexture('phase_6/maps/%s.jpg' % texNodePath, 'phase_6/maps/%s_a.rgb' % texNodePath)
+                tex = loader.loadTexture('phase_6/maps/%s.png' % texNodePath)
             elif accType in [KartDNA.bodyColor, KartDNA.accColor]:
-                tex = loader.loadTexture('phase_6/maps/Kartmenu_paintbucket.jpg', 'phase_6/maps/Kartmenu_paintbucket_a.rgb')
+                tex = loader.loadTexture('phase_6/maps/Kartmenu_paintbucket.png')
                 if accID == InvalidEntry:
                     self.kartView.component('geom0').setColorScale(getDefaultColor())
                 else:
@@ -767,9 +764,9 @@ class KartShopGuiMgr(DirectObject.DirectObject, object):
             elif accType == KartDNA.decalType:
                 kartDecal = getDecalId(base.localAvatar.getKartBodyType())
                 texNodePath = getTexCardNode(accID)
-                tex = loader.loadTexture('phase_6/maps/%s.jpg' % texNodePath % kartDecal, 'phase_6/maps/%s_a.rgb' % texNodePath % kartDecal)
+                tex = loader.loadTexture('phase_6/maps/%s.png' % texNodePath % kartDecal)
             else:
-                tex = loader.loadTexture('phase_6/maps/NoAccessoryIcon3.jpg', 'phase_6/maps/NoAccessoryIcon3_a.rgb')
+                tex = loader.loadTexture('phase_6/maps/NoAccessoryIcon3.png')
             tex.setMinfilter(Texture.FTLinearMipmapLinear)
             self.kartView.component('geom0').setTexture(tex, 1)
             self.initialize = True

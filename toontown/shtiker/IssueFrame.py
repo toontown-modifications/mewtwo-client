@@ -1,8 +1,8 @@
 import os
-from pandac.PandaModules import VirtualFileSystem, Filename, DSearchPath
-from pandac.PandaModules import Texture, CardMaker, PNMImage, TextureStage
-from pandac.PandaModules import NodePath
-from pandac.PandaModules import Point2
+from panda3d.core import VirtualFileSystem, Filename, DSearchPath
+from panda3d.core import Texture, CardMaker, PNMImage, TextureStage
+from panda3d.core import NodePath
+from panda3d.core import Point2
 from direct.showbase import DirectObject
 from direct.gui.DirectGui import DirectFrame, DirectButton, DGG, DirectLabel
 from direct.directnotify import DirectNotifyGlobal
@@ -23,7 +23,7 @@ class IssueFrame(DirectFrame):
      -0.751666665077,
      0.751666665077)
     notify = DirectNotifyGlobal.directNotify.newCategory('IssueFrame')
-    ContentPattern = 'tt_i_art_%s_%s%d.jpg'
+    ContentPattern = 'tt_i_art_%s_%s%d.png'
     SectionIdents = ['hom',
      'new',
      'evt',
