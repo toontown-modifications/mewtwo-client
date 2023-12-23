@@ -39,6 +39,7 @@ from otp.distributed.TelemetryLimiter import TelemetryLimiter
 from otp.ai.GarbageLeakServerEventAggregator import GarbageLeakServerEventAggregator
 from .PotentialAvatar import PotentialAvatar
 from enum import IntEnum
+from panda3d.otp import WhisperPopup
 
 class OTPClientRepository(ClientRepositoryBase):
     notify = directNotify.newCategory('OTPClientRepository')
