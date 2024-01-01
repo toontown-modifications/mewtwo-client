@@ -88,8 +88,7 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
         datagram.addString('dev')
         datagram.addUint32(cr.hashVal)
         datagram.addUint32(4)
-        magicWords = base.config.GetString('want-magic-words', '')
-        datagram.addString(magicWords)
+        datagram.addString('YES' if cr.wantMagicWords else 'NO')
         cr.send(datagram)
 
     def resendPlayToken(self):
