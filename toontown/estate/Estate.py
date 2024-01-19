@@ -17,6 +17,7 @@ from toontown.pets import PetTutorial
 from direct.controls.GravityWalker import GravityWalker
 from otp.distributed.TelemetryLimiter import RotationLimitToH, TLGatherAllAvs, TLNull
 from . import HouseGlobals
+from toontown.toonbase import ToontownGlobals
 
 class Estate(Place.Place):
     notify = DirectNotifyGlobal.directNotify.newCategory('Estate')
