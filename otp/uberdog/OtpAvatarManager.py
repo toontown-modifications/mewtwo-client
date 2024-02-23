@@ -27,8 +27,12 @@ class OtpAvatarManager(DistributedObject.DistributedObject):
         messenger.send('avatarListFailed', [result])
 
     def avatarListResponse(self, pickleData):
-        avatars = loads(pickleData)
-        messenger.send('avatarList', [avatars])
+        try:
+            avatars = loads(pickleData)
+            messenger.send('avatarList', [avatars])
+        except ValueError:
+            # Prevent a crash due to the server sending patches the original game client (Python 2.4)
+            self.notify.warning("Prevented a crash")
 
     def rejectCreateAvatar(self, result):
         messenger.send('createdNewAvatarFailed', [result])
