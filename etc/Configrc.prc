@@ -102,4 +102,3 @@ game-server 127.0.0.1:6665
 want-magic-words true
 want-discord-presence false
 discord-client-id 592845025331642389
-in-game-news-url http://download.sunrise.games/toontown/en/gamenews/

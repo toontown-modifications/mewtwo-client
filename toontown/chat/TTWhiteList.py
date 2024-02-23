@@ -76,7 +76,7 @@ class TTWhiteList(WhiteList, DirectObject):
             self.updateWhitelist()
 
     def getWhitelistUrl(self):
-        result = ConfigVariableString('fallback-whitelist-url', 'http://cdn.toontown.disney.go.com/toontown/en/').value
+        result = ConfigVariableString('fallback-whitelist-url', 'http://download.sunrise.games/launcher/').value
         override = ConfigVariableString('whitelist-url', '').value
         if override:
             self.notify.info('got an override url,  using %s for the whitelist' % override)
