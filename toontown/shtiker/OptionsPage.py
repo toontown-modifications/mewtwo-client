@@ -50,7 +50,7 @@ speedChatStyles = ((2000,
   (170 / 255.0, 120 / 255.0, 20 / 255.0),
   (165 / 255.0, 120 / 255.0, 50 / 255.0),
   (210 / 255.0, 200 / 255.0, 180 / 255.0)))
-PageMode = IntEnum('PageMode', ('Options', 'Codes'), start=0)
+PageMode = IntEnum('PageMode', ('Options', 'Codes', 'ExtraOptions'), start=0)
 
 class OptionsPage(ShtikerPage.ShtikerPage):
     notify = DirectNotifyGlobal.directNotify.newCategory('OptionsPage')
@@ -60,20 +60,95 @@ class OptionsPage(ShtikerPage.ShtikerPage):
 
     def load(self):
         ShtikerPage.ShtikerPage.load(self)
+
+        # Create the OptionsTabPage
         self.optionsTabPage = OptionsTabPage(self)
         self.optionsTabPage.hide()
+
+        # Create the Codes Tab
         self.codesTabPage = CodesTabPage(self)
         self.codesTabPage.hide()
-        titleHeight = 0.61
-        self.title = DirectLabel(parent=self, relief=None, text=TTLocalizer.OptionsPageTitle, text_scale=0.12, pos=(0, 0, titleHeight))
+
+        # Create the CodesTabPage
+        self.ExtraOptionsTabPage = ExtraOptionsTabPage(self)
+        self.ExtraOptionsTabPage.hide()
+
+        titleHeight = 0.61  # bigger number means higher the title
+        self.title = DirectLabel(
+            parent=self,
+            relief=None,
+            text=TTLocalizer.OptionsPageTitle,
+            text_scale=0.12,
+            pos=(0, 0, titleHeight),
+        )
+
+        # The blue and yellow colors are trying to match the
+        # rollover and select colors on the options page:
         normalColor = (1, 1, 1, 1)
         clickColor = (0.8, 0.8, 0, 1)
         rolloverColor = (0.15, 0.82, 1.0, 1)
         diabledColor = (1.0, 0.98, 0.15, 1)
+
+        # Load the Fish Page to borrow its tabs
         gui = loader.loadModel('phase_3.5/models/gui/fishingBook')
-        self.optionsTab = DirectButton(parent=self, relief=None, text=TTLocalizer.OptionsPageTitle, text_scale=TTLocalizer.OPoptionsTab, text_align=TextNode.ALeft, text_pos=(0.01, 0.0, 0.0), image=gui.find('**/tabs/polySurface1'), image_pos=(0.55, 1, -0.91), image_hpr=(0, 0, -90), image_scale=(0.033, 0.033, 0.035), image_color=normalColor, image1_color=clickColor, image2_color=rolloverColor, image3_color=diabledColor, text_fg=Vec4(0.2, 0.1, 0, 1), command=self.setMode, extraArgs=[PageMode.Options], pos=(-0.36, 0, 0.77))
-        self.codesTab = DirectButton(parent=self, relief=None, text=TTLocalizer.OptionsPageCodesTab, text_scale=TTLocalizer.OPoptionsTab, text_align=TextNode.ALeft, text_pos=(-0.035, 0.0, 0.0), image=gui.find('**/tabs/polySurface2'), image_pos=(0.12, 1, -0.91), image_hpr=(0, 0, -90), image_scale=(0.033, 0.033, 0.035), image_color=normalColor, image1_color=clickColor, image2_color=rolloverColor, image3_color=diabledColor, text_fg=Vec4(0.2, 0.1, 0, 1), command=self.setMode, extraArgs=[PageMode.Codes], pos=(0.11, 0, 0.77))
+        self.optionsTab = DirectButton(
+            parent=self,
+            relief=None,
+            text=TTLocalizer.OptionsPageTitle,
+            text_scale=TTLocalizer.OPoptionsTab,
+            text_align=TextNode.ALeft,
+            text_pos=(0.01, 0.0, 0.0),
+            image=gui.find("**/tabs/polySurface1"),
+            image_pos=(0.55, 1, -0.91),
+            image_hpr=(0, 0, -90),
+            image_scale=(0.033, 0.033, 0.035),
+            image_color=normalColor,
+            image1_color=clickColor,
+            image2_color=rolloverColor,
+            image3_color=diabledColor,
+            text_fg=Vec4(0.2, 0.1, 0, 1),
+            command=self.setMode,
+            extraArgs=[PageMode.Options],
+            pos=(-0.36, 0, 0.77),
+        )
+
+        self.codesTab = DirectButton(
+            parent=self,
+            relief=None,
+            text=TTLocalizer.OptionsPageCodesTab,
+            text_scale=TTLocalizer.OPoptionsTab,
+            text_align=TextNode.ALeft,
+            text_pos=(-0.035, 0.0, 0.0),
+            image=gui.find("**/tabs/polySurface2"),
+            image_pos=(0.12, 1, -0.91),
+            image_hpr=(0, 0, -90),
+            image_scale=(0.033, 0.033, 0.035),
+            image_color=normalColor,
+            image1_color=clickColor,
+            image2_color=rolloverColor,
+            image3_color=diabledColor,
+            text_fg=Vec4(0.2, 0.1, 0, 1),
+            command=self.setMode,
+            extraArgs=[PageMode.Codes],
+            pos=(0.11, 0, 0.77),
+        )
+
+        self.ExtraOptionsTab = DirectButton(
+            parent=self,
+            relief=None,
+            text=TTLocalizer.OptionsPageExtra,
+            text_scale=TTLocalizer.OPoptionsTab, text_align=TextNode.ALeft,
+            text_pos=(-0.035, 0.0, 0.0), image=gui.find('**/tabs/polySurface2'),
+            image_pos=(0.14, 1, -0.91), image_hpr=(0, 0, -90),
+            image_scale=(0.033, 0.033, 0.035), image_color=normalColor,
+            image1_color=clickColor, image2_color=rolloverColor,
+            image3_color=diabledColor,
+            text_fg=Vec4(0.2, 0.1, 0, 1), command=self.setMode,
+            extraArgs=[PageMode.ExtraOptions],
+            pos=(-0.80, 0, 0.77),
+        )
         return
+
 
     def enter(self):
         self.setMode(PageMode.Options, updateAnyways=1)
@@ -82,6 +157,7 @@ class OptionsPage(ShtikerPage.ShtikerPage):
     def exit(self):
         self.optionsTabPage.exit()
         self.codesTabPage.exit()
+        self.ExtraOptionsTabPage.exit()
         ShtikerPage.ShtikerPage.exit(self)
 
     def unload(self):
@@ -103,13 +179,26 @@ class OptionsPage(ShtikerPage.ShtikerPage):
             self.optionsTabPage.enter()
             self.codesTab['state'] = DGG.NORMAL
             self.codesTabPage.exit()
+            self.ExtraOptionsTab['state'] = DGG.NORMAL
+            self.ExtraOptionsTabPage.exit()
         elif mode == PageMode.Codes:
             self.mode = PageMode.Codes
             self.title['text'] = TTLocalizer.CdrPageTitle
             self.optionsTab['state'] = DGG.NORMAL
             self.optionsTabPage.exit()
+            self.ExtraOptionsTab['state'] = DGG.NORMAL
+            self.ExtraOptionsTabPage.exit()
             self.codesTab['state'] = DGG.DISABLED
             self.codesTabPage.enter()
+        elif mode == PageMode.ExtraOptions:
+            self.mode = PageMode.ExtraOptions
+            self.title['text'] = TTLocalizer.OptionsPageExtra
+            self.ExtraOptionsTab['state'] = DGG.DISABLED
+            self.ExtraOptionsTabPage.enter()
+            self.codesTab['state'] = DGG.NORMAL
+            self.codesTabPage.exit()
+            self.optionsTab['state'] = DGG.NORMAL
+            self.optionsTabPage.exit()
         else:
             raise Exception('OptionsPage::setMode - Invalid Mode %s' % mode)
 
@@ -603,3 +692,77 @@ class CodesTabPage(DirectFrame):
         self.codeInput['state'] = DGG.NORMAL
         self.codeInput['focus'] = 1
         self.submitButton['state'] = DGG.NORMAL
+
+class ExtraOptionsTabPage(DirectFrame):
+    notify = DirectNotifyGlobal.directNotify.newCategory('ExtraOptionsTabPage')
+
+    def __init__(self, parent=aspect2d):
+        self._parent = parent
+        DirectFrame.__init__(
+            self,
+            parent=self._parent,
+            relief=None,
+            pos=(0.0, 0.0, 0.0),
+            scale=(1.0, 1.0, 1.0),
+        )
+        self.load()
+        return
+
+    def destroy(self):
+        self._parent = None
+        DirectFrame.destroy(self)
+        return
+
+    def enter(self):
+        self.show()
+        localAvatar.chatMgr.fsm.request('otherDialog')
+        self.__setSmoothFramesButton()
+
+    def exit(self):
+        self.hide()
+        localAvatar.chatMgr.fsm.request('mainMenu')
+
+    def unload(self):
+        self.SmoothFrames_toggleButton.destroy()
+        del self.SmoothFrames_Label
+        del self.SmoothFrames_toggleButton
+
+
+    def load(self):
+        guiButton = loader.loadModel('phase_3/models/gui/quit_button')
+        gui = loader.loadModel('phase_3.5/models/gui/friendslist_gui')
+
+
+        button_image_scale = (0.7, 1, 1)
+        options_text_scale = 0.052
+        button_textpos = (0, -0.02)
+        buttonbase_xcoord = 0.35
+        buttonbase_ycoord = 0.45
+        textStartHeight = 0.45
+
+        leftMargin = -0.72
+        self.SmoothFrames_Label = DirectLabel(parent=self, relief=None, text='', text_align=TextNode.ALeft, text_scale=options_text_scale, pos=(leftMargin, 0, textStartHeight))
+        self.SmoothFrames_toggleButton = DirectButton(parent=self, relief=None, image=(guiButton.find('**/QuitBtn_UP'), guiButton.find('**/QuitBtn_DN'), guiButton.find('**/QuitBtn_RLVR')), image_scale=button_image_scale, text='', text_scale=options_text_scale, text_pos=button_textpos, pos=(buttonbase_xcoord, 0.0, buttonbase_ycoord), command=self.__doToggleSmoothFrames)
+        
+        return
+
+
+    def __doToggleSmoothFrames(self):
+        messenger.send('wakeup')
+        if base.SmoothFramesOn:
+            base.SmoothFramesOn = 1
+            base.settings.updateSetting('smooth-frames', True)
+        else:
+            base.SmoothFramesOn = 0
+            base.settings.updateSetting('smooth-frames', False)
+        self.settingsChanged = 1
+        self.__setSmoothFramesButton()
+
+    
+    def __setSmoothFramesButton(self):
+        if base.SmoothFramesOn:
+            self.SmoothFrames_Label['text'] = TTLocalizer.SmoothFramesOnLabel
+            self.SmoothFrames_toggleButton['text'] = TTLocalizer.SmoothFramesToggleOff
+        else:
+            self.SmoothFrames_Label['text'] = TTLocalizer.SmoothFramesOffLabel
+            self.SmoothFrames_toggleButton['text'] = TTLocalizer.SmoothFramesToggleOn

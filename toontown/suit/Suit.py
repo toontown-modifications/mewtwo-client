@@ -393,6 +393,7 @@ class Suit(Avatar.Avatar):
             self.generateSuit()
             self.initializeDropShadow()
             self.initializeNametag3d()
+            self.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
 
     def generateSuit(self):
         dna = self.style

@@ -1,5 +1,5 @@
 # Window Settings
-window-title Toontown
+window-title Toontown Modifications
 icon-filename phase_3/models/gui/toontown.ico
 cursor-filename phase_3/models/gui/toonmono.cur
 
@@ -13,6 +13,7 @@ depth-bits 24
 audio-sfx-active #t
 audio-music-active #t
 aspect-ratio 1.333333
+show-frame-rate-meter #t
 
 # Models/Resources
 model-path resources
@@ -100,5 +101,5 @@ server-data-folder data
 server-want-ssl true
 game-server 127.0.0.1:6665
 want-magic-words true
-want-discord-presence false
+want-discord-presence true
 discord-client-id 592845025331642389

@@ -131,6 +131,7 @@ class Char(Avatar.Avatar):
             self.initializeDropShadow()
             self.initializeNametag3d()
             self.nametag3d.setBin('fixed', 0)
+            self.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
             if self._name == 'chip' or self._name == 'dale' or self._name == 'police_chip' or self._name == 'jailbird_dale':
                 self.find('**/drop-shadow').setScale(0.33)
 

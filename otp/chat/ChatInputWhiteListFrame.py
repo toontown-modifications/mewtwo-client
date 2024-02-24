@@ -30,7 +30,7 @@ class ChatInputWhiteListFrame(FSM.FSM, DirectFrame):
          'pos': (-0.2, 0, 0.11),
          'entryFont': OTPGlobals.getInterfaceFont(),
          'width': 8.6,
-         'numLines': 3,
+         'numLines': 20,
          'cursorKeys': 1,
          'backgroundFocus': 0,
          'suppressKeys': 1,

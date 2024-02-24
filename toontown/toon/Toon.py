@@ -693,6 +693,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.rescaleToon()
         self.resetHeight()
         self.setupToonNodes()
+        self.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
 
     def setupToonNodes(self):
         rightHand = NodePath('rightHand')
@@ -737,6 +738,7 @@ class Toon(Avatar.Avatar, ToonHead):
         if self.__bookActors:
             return self.__bookActors
         bookActor = Actor.Actor('phase_3.5/models/props/book-mod', {'book': 'phase_3.5/models/props/book-chan'})
+        bookActor.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
         bookActor2 = Actor.Actor(other=bookActor)
         bookActor3 = Actor.Actor(other=bookActor)
         self.__bookActors = [bookActor, bookActor2, bookActor3]
@@ -751,6 +753,7 @@ class Toon(Avatar.Avatar, ToonHead):
         if self.__holeActors:
             return self.__holeActors
         holeActor = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
+        holeActor.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
         holeActor2 = Actor.Actor(other=holeActor)
         holeActor3 = Actor.Actor(other=holeActor)
         self.__holeActors = [holeActor, holeActor2, holeActor3]
@@ -824,6 +827,7 @@ class Toon(Avatar.Avatar, ToonHead):
         del self.shadowJoint
         self.initializeDropShadow()
         self.initializeNametag3d()
+        self.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
 
     def generateToonTorso(self, copy = 1, genClothes = 1):
         torsoStyle = self.style.torso
@@ -861,6 +865,8 @@ class Toon(Avatar.Avatar, ToonHead):
         self.resetHeight()
         self.setupToonNodes()
         self.generateBackpack()
+        self.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
+
 
     def generateToonHead(self, copy = 1):
         headHeight = ToonHead.generateToonHead(self, copy, self.style, ('1000', '500', '250'))
@@ -884,6 +890,8 @@ class Toon(Avatar.Avatar, ToonHead):
         self.resetHeight()
         self.eyelids.request('open')
         self.startLookAround()
+        self.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
+
 
     def generateToonColor(self):
         ToonHead.generateToonColor(self, self.style)

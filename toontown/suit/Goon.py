@@ -72,6 +72,7 @@ class Goon(Avatar.Avatar):
             self.generateGoon()
             self.initializeDropShadow()
             self.initializeNametag3d()
+            self.setBlend(frameBlend=base.settings.getBool('game', 'smooth-frames', False))
 
     def generateGoon(self):
         dna = self.style

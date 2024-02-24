@@ -26,6 +26,7 @@ class DisplayOptions:
         music = base.settings.getSetting('music', True)
         sfx = base.settings.getSetting('sfx', True)
         toonChatSounds = base.settings.getSetting('toon-chat-sounds', True)
+        SmoothFrames = base.settings.getSetting('smooth-frames', True)
         res = base.settings.getSetting('resolution', (800, 600))
         embed = False  # base.settings.getSetting('embedded-mode', False)
         self.notify.debug('before prc settings embedded mode=%s' % str(embed))

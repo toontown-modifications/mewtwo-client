@@ -29,6 +29,7 @@ class ToonBase(OTPBase.OTPBase):
             music = self.settings.getSetting('music', True)
             sfx = self.settings.getSetting('sfx', True)
             toonChatSounds = self.settings.getSetting('toon-chat-sounds', True)
+            SmoothFrames = self.settings.getSetting('smooth-frames', True)
             res = self.settings.getSetting('resolution', (800, 600))
             if mode == None:
                 mode = 1
@@ -39,6 +40,7 @@ class ToonBase(OTPBase.OTPBase):
             loadPrcFileData('toonBase Settings Music Active', 'audio-music-active %s' % music)
             loadPrcFileData('toonBase Settings Sound Active', 'audio-sfx-active %s' % sfx)
             loadPrcFileData('toonBase Settings Toon Chat Sounds', 'toon-chat-sounds %s' % toonChatSounds)
+            loadPrcFileData('toonBase Settings Smooth Frames Active', 'smooth-frames %s' % SmoothFrames)
         OTPBase.OTPBase.__init__(self)
         if not self.isMainWindowOpen():
             try:
@@ -51,6 +53,7 @@ class ToonBase(OTPBase.OTPBase):
         base.debugRunningMultiplier /= OTPGlobals.ToonSpeedFactor
         self.toonChatSounds = ConfigVariableBool('toon-chat-sounds', 1).value
         self.placeBeforeObjects = ConfigVariableBool('place-before-objects', 0).value
+        self.SmoothFramesOn = config.GetBool('smooth-frames', True)
         self.endlessQuietZone = False
         self.wantDynamicShadows = 0
         self.exitErrorCode = 0
@@ -310,7 +313,7 @@ class ToonBase(OTPBase.OTPBase):
             self.notify.info('Using gameServer from launcher: %s ' % gameServer)
         else:
             gameServer = '127.0.0.1'
-        serverPort = ConfigVariableInt('server-port', 6667).value
+        serverPort = ConfigVariableInt('server-port', 6665).value
         serverList = []
         for name in gameServer.split(';'):
             url = URLSpec(name, 1)

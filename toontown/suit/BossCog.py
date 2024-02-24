@@ -77,6 +77,7 @@ class BossCog(Avatar.Avatar):
             self.style = dna
             self.generateBossCog()
             self.initializeDropShadow()
+            self.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
             if base.wantNametags:
                 self.initializeNametag3d()
 

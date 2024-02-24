@@ -6,7 +6,7 @@ class Settings:
 
     def __init__(self):
         self.__settings = {}
-        self.__filename = 'useropt.json'
+        self.__filename = 'settings.json'
 
     def doSavedSettingsExist(self):
         return os.path.exists(self.__filename)

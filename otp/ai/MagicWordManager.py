@@ -120,7 +120,10 @@ class MagicWordManager(DistributedObject.DistributedObject):
             else:
                 self._collideSpamSeverity = n.getSeverity()
                 n.setSeverity(NSSpam)
+        elif wordIs('~zoneid'):
+            self.setMagicWordResponse(str(zoneId))
         elif wordIs('~notify'):
+            
             args = word.split()
             n = Notify.ptr().getCategory(args[1])
             n.setSeverity({'error': NSError,

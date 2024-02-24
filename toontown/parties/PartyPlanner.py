@@ -24,6 +24,7 @@ from toontown.parties.PartyEditor import PartyEditor
 from otp.otpbase import OTPGlobals
 from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
+from panda3d.otp import *
 
 class PartyPlanner(DirectFrame, FSM):
     notify = DirectNotifyGlobal.directNotify.newCategory('PartyPlanner')

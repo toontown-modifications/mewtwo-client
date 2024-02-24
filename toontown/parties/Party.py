@@ -1,6 +1,7 @@
 from panda3d.core import *
 from toontown.toonbase.ToonBaseGlobal import *
 from toontown.toonbase.ToontownGlobals import *
+from toontown.toonbase import ToontownGlobals
 from direct.gui.DirectGui import *
 from direct.distributed.ClockDelta import *
 from toontown.hood import Place
