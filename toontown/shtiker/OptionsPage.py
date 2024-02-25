@@ -760,7 +760,7 @@ class ExtraOptionsTabPage(DirectFrame):
             base.SmoothFramesOn = 0
             base.settings.updateSetting('smooth-frames', True)
             self.notify.warning("Smooth frames set off! Attempting to turn on")
-            self.promptRestart()
+        self.promptRestart()
         self.settingsChanged = 1
         self.__setSmoothFramesButton()
 
