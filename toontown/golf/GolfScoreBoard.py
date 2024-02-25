@@ -7,6 +7,10 @@ from math import *
 from direct.distributed.ClockDelta import *
 from toontown.golf import GolfGlobals
 from panda3d.core import LineSegs
+from direct.gui.DirectGui import *
+from toontown.toonbase import ToontownGlobals
+from toontown.toonbase import TTLocalizer
+
 AUTO_HIDE_TIMEOUT = 3
 
 class GolfScoreBoard:
