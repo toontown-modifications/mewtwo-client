@@ -719,8 +719,11 @@ class ExtraOptionsTabPage(DirectFrame):
         self.__setSmoothFramesButton()
 
     def exit(self):
+        self.ignore('confirmDone')
         self.hide()
         localAvatar.chatMgr.fsm.request('mainMenu')
+        if self.settingsChanged != 0:
+            base.settings.writeSettings()
 
     def unload(self):
         self.SmoothFrames_toggleButton.destroy()
@@ -731,7 +734,7 @@ class ExtraOptionsTabPage(DirectFrame):
     def load(self):
         guiButton = loader.loadModel('phase_3/models/gui/quit_button')
         gui = loader.loadModel('phase_3.5/models/gui/friendslist_gui')
-
+        self.settingsChanged = 0
 
         button_image_scale = (0.7, 1, 1)
         options_text_scale = 0.052
@@ -751,14 +754,23 @@ class ExtraOptionsTabPage(DirectFrame):
         messenger.send('wakeup')
         if base.SmoothFramesOn:
             base.SmoothFramesOn = 1
-            base.settings.updateSetting('smooth-frames', True)
+            base.settings.updateSetting('smooth-frames', False)
+            self.notify.warning("Smooth Friends set On!! Attempting to turn off")
         else:
             base.SmoothFramesOn = 0
-            base.settings.updateSetting('smooth-frames', False)
+            base.settings.updateSetting('smooth-frames', True)
+            self.notify.warning("Smooth frames set off! Attempting to turn on")
+            self.promptRestart()
         self.settingsChanged = 1
         self.__setSmoothFramesButton()
 
-    
+    def promptRestart(self):
+        self.promptRestartDialog = TTDialog.TTDialog(parent=aspect2dp, text=TTLocalizer.PromptRestart, text_scale=0.06, text_align=TextNode.ACenter, text_wordwrap=22, fadeScreen=0.5, style=TTDialog.Acknowledge, button_text_scale=0.06, buttonPadSF=5.5, command=self.__closeRestart)
+        self.promptRestartDialog.show()
+
+    def __closeRestart(self, *args):
+        self.promptRestartDialog.destroy()
+
     def __setSmoothFramesButton(self):
         if base.SmoothFramesOn:
             self.SmoothFrames_Label['text'] = TTLocalizer.SmoothFramesOnLabel
@@ -766,3 +778,5 @@ class ExtraOptionsTabPage(DirectFrame):
         else:
             self.SmoothFrames_Label['text'] = TTLocalizer.SmoothFramesOffLabel
             self.SmoothFrames_toggleButton['text'] = TTLocalizer.SmoothFramesToggleOn
+
+            

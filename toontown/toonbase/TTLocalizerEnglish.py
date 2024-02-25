@@ -4689,8 +4689,8 @@ OptionsPageChange = 'Change'
 OptionsPageExtra = "Extra"
 SmoothFramesToggleOff = 'Turn Off'
 SmoothFramesToggleOn = 'Turn Off'
-SmoothFramesOnLabel = 'Smooth Frames are on.'
-SmoothFramesOffLabel = 'Smooth Frames are off.'
+SmoothFramesOnLabel = 'Smooth Animations are on.'
+SmoothFramesOffLabel = 'Smooth Animations are off.'
 SmoothFramesToggleOn = 'Turn On'
 OptionsPageDisplaySettings = 'Display: %(screensize)s, %(api)s'
 OptionsPageDisplaySettingsNoApi = 'Display: %(screensize)s'
@@ -9766,3 +9766,4 @@ InteractivePropTrackBonusTerms = {0: 'Super Toon-Up!',
  5: 'Super Squirt!',
  6: ''}
 PlayingCardUnknown = 'Card Name is unknown'
+PromptRestart = "You will need to restart in order to apply this change."

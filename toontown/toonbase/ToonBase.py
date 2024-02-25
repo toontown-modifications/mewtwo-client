@@ -53,7 +53,7 @@ class ToonBase(OTPBase.OTPBase):
         base.debugRunningMultiplier /= OTPGlobals.ToonSpeedFactor
         self.toonChatSounds = ConfigVariableBool('toon-chat-sounds', 1).value
         self.placeBeforeObjects = ConfigVariableBool('place-before-objects', 0).value
-        self.SmoothFramesOn = config.GetBool('smooth-frames', True)
+        self.SmoothFramesOn = base.settings.getSetting('smooth-frames', True)
         self.endlessQuietZone = False
         self.wantDynamicShadows = 0
         self.exitErrorCode = 0
