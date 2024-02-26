@@ -3,6 +3,7 @@ from direct.fsm import ClassicFSM, State
 from direct.task.Task import Task
 from panda3d.core import *
 from otp.avatar import DistributedAvatar
+from direct.gui.DirectGui import *
 from toontown.toonbase.ToonBaseGlobal import *
 from toontown.toonbase.ToontownGlobals import *
 from toontown.distributed.ToontownMsgTypes import *

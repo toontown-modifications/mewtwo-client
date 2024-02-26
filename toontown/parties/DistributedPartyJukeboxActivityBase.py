@@ -174,7 +174,8 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
             self.music.play()
             jukeboxAnimControl = self.jukebox.getAnimControl('dance')
             if not jukeboxAnimControl.isPlaying():
-                self.jukebox.loop('dance')
+                self.jukebox.loop('dance', fromFrame=0, toFrame=48)
+                self.jukebox.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
             self.currentSongData = (phase, filename)
 
     def __stop(self):
