@@ -122,6 +122,7 @@ class CogdoFlyingGame(DirectObject):
         self._movie.end()
         self._movie.unload()
         del self._movie
+        base.camLens.setMinFov(ToontownGlobals.DefaultCameraFov / (4. / 3.))
         self.localPlayer.ready()
         self.level.update(0.0)
 

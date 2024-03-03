@@ -21,6 +21,8 @@ from toontown.toonbase import TTLocalizer
 from direct.distributed import DistributedObject
 from toontown.effects import Wake
 from direct.controls.ControlManager import CollisionHandlerRayStart
+from direct.interval.LerpInterval import LerpPosInterval
+from panda3d.otp import *
 LAND_TIME = 2
 WORLD_SCALE = 2.0
 GROUND_SCALE = 1.4 * WORLD_SCALE

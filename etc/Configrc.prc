@@ -12,7 +12,6 @@ aux-display tinydisplay
 depth-bits 24
 audio-sfx-active #t
 audio-music-active #t
-aspect-ratio 1.333333
 show-frame-rate-meter #t
 
 # Models/Resources
@@ -99,7 +98,9 @@ text-minfilter linear_mipmap_linear
 gc-save-all 0
 server-data-folder data
 server-want-ssl true
-game-server 127.0.0.1:6665
 want-magic-words true
-want-discord-presence true
+want-discord-presence false
 discord-client-id 592845025331642389
+want-chat-offenses false
+want-qa-regression true
+want-photo-album true

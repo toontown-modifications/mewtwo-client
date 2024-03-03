@@ -169,6 +169,7 @@ class CogdoMazeGame(DirectObject):
         self._movie.end()
         self._movie.unload()
         del self._movie
+        base.camLens.setMinFov(ToontownGlobals.DefaultCameraFov / (4. / 3.))
         for player in self.players:
             self.placePlayer(player)
             if player.toon is localAvatar:

@@ -1258,7 +1258,7 @@ class DistributedVineGame(DistributedMinigame):
         self.cLens = PerspectiveLens()
         xFov = 40
         yFov = 2.5
-        self.cLens.setFov(xFov, yFov)
+        self.cLens.setMinFov(xFov, yFov)
         self.cLens.setNear(0.1)
         self.cLens.setFar(1300.0)
         self.cCamNode.setLens(self.cLens)

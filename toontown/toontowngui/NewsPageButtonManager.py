@@ -34,12 +34,12 @@ class NewsPageButtonManager(FSM.FSM):
         oldScale = 0.5
         newScale = 0.9
         shtickerBookScale = 0.305
-        newPos = VBase3(0.914, 0, 0.862)
-        shtickerBookPos = VBase3(1.175, 0, -0.83)
+        newPos = VBase3(-0.419333, 0, -0.138)
+        shtickerBookPos = VBase3(-0.158333, 0, 0.17)
         textScale = 0.06
-        self.newIssueButton = DirectButton(relief=None, sortOrder=DGG.BACKGROUND_SORT_INDEX - 1, image=(self.openNewNewsUp, self.openNewNewsHover, self.openNewNewsHover), text=('', TTLocalizer.EventsPageNewsTabName, TTLocalizer.EventsPageNewsTabName), text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=textScale, text_font=ToontownGlobals.getInterfaceFont(), pos=newPos, scale=newScale, command=self.__handleGotoNewsButton)
-        self.gotoPrevPageButton = DirectButton(relief=None, image=(self.closeNewsUp, self.closeNewsHover, self.closeNewsHover), text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=textScale, text_font=ToontownGlobals.getInterfaceFont(), pos=shtickerBookPos, scale=shtickerBookScale, command=self.__handleGotoPrevPageButton)
-        self.goto3dWorldButton = DirectButton(relief=None, image=(self.closeNewsUp, self.closeNewsHover, self.closeNewsHover), text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=textScale, text_font=ToontownGlobals.getInterfaceFont(), pos=shtickerBookPos, scale=shtickerBookScale, command=self.__handleGoto3dWorldButton)
+        self.newIssueButton = DirectButton(relief=None, sortOrder=DGG.BACKGROUND_SORT_INDEX - 1, image=(self.openNewNewsUp, self.openNewNewsHover, self.openNewNewsHover), text=('', TTLocalizer.EventsPageNewsTabName, TTLocalizer.EventsPageNewsTabName), text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=textScale, text_font=ToontownGlobals.getInterfaceFont(), pos=newPos, parent=base.a2dTopRight, scale=newScale, command=self.__handleGotoNewsButton)
+        self.gotoPrevPageButton = DirectButton(relief=None, image=(self.closeNewsUp, self.closeNewsHover, self.closeNewsHover), text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=textScale, text_font=ToontownGlobals.getInterfaceFont(), pos=shtickerBookPos, parent=base.a2dBottomRight, scale=shtickerBookScale, command=self.__handleGotoPrevPageButton)
+        self.goto3dWorldButton = DirectButton(relief=None, image=(self.closeNewsUp, self.closeNewsHover, self.closeNewsHover), text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=textScale, text_font=ToontownGlobals.getInterfaceFont(), pos=shtickerBookPos, parent=base.a2dBottomRight, scale=shtickerBookScale, command=self.__handleGoto3dWorldButton)
         self.hideNewIssueButton()
         self.gotoPrevPageButton.hide()
         self.goto3dWorldButton.hide()

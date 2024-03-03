@@ -92,8 +92,7 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             newScale = oldScale = 0.8
             if WantNewsPage:
                 newScale = oldScale * ToontownGlobals.NewsPageScaleAdjust
-            self.bFriendsList = DirectButton(image=(friendsButtonNormal, friendsButtonPressed, friendsButtonRollover), relief=None, pos=(1.192, 0, 0.875), scale=newScale, text=('', TTLocalizer.FriendsListLabel, TTLocalizer.FriendsListLabel), text_scale=0.09, text_fg=Vec4(1, 1, 1, 1), text_shadow=Vec4(0, 0, 0, 1), text_pos=(0, -0.18), text_font=ToontownGlobals.getInterfaceFont(), command=self.sendFriendsListEvent)
-            self.bFriendsList.hide()
+            self.bFriendsList = DirectButton(image=(friendsButtonNormal, friendsButtonPressed, friendsButtonRollover), relief=None, pos=(-0.141, 0, -0.125), parent=base.a2dTopRight, scale=newScale, text=('', TTLocalizer.FriendsListLabel, TTLocalizer.FriendsListLabel), text_scale=0.09, text_fg=Vec4(1, 1, 1, 1), text_shadow=Vec4(0, 0, 0, 1), text_pos=(0, -0.18), text_font=ToontownGlobals.getInterfaceFont(), command=self.sendFriendsListEvent)
             self.friendsListButtonActive = 0
             self.friendsListButtonObscured = 0
             self.moveFurnitureButtonObscured = 0
@@ -370,10 +369,11 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         self.laffMeter = LaffMeter.LaffMeter(self.style, self.hp, self.maxHp)
         self.laffMeter.setAvatar(self)
         self.laffMeter.setScale(0.075)
+        self.laffMeter.reparentTo(base.a2dBottomLeft)
         if self.style.getAnimal() == 'monkey':
-            self.laffMeter.setPos(-1.18, 0.0, -0.87)
+            self.laffMeter.setPos(0.153, 0.0, 0.13)
         else:
-            self.laffMeter.setPos(-1.2, 0.0, -0.87)
+            self.laffMeter.setPos(0.133, 0.0, 0.13)
         self.laffMeter.stop()
         self.questMap = QuestMap.QuestMap(self)
         self.questMap.stop()
@@ -1011,14 +1011,14 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         icon.setColor(white)
         claraXPos = ClaraBaseXPos
         newScale = oldScale = 0.5
-        newPos = (claraXPos, 1.0, 0.37)
+        newPos = (claraXPos, 1.0, -0.63)
         if WantNewsPage:
             claraXPos += AdjustmentForNewsButton
-            oldPos = ((claraXPos, 1.0, 0.37),)
+            oldPos = ((claraXPos, 1.0, -0.63),)
             newScale = oldScale * ToontownGlobals.NewsPageScaleAdjust
-            newPos = (claraXPos - 0.1, 1.0, 0.45)
+            newPos = (claraXPos - 0.1, 1.0, -0.55)
         self.__clarabelleButton = DirectButton(relief=None, image=circle, text='', text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=0.1, text_pos=(-1.06, 1.06), text_font=ToontownGlobals.getInterfaceFont(), pos=newPos, scale=newScale, command=self.__handleClarabelleButton)
-        self.__clarabelleButton.reparentTo(aspect2d, DGG.BACKGROUND_SORT_INDEX - 1)
+        self.__clarabelleButton.reparentTo(base.a2dTopRight, DGG.BACKGROUND_SORT_INDEX - 1)
         button = self.__clarabelleButton.stateNodePath[0]
         self.__clarabelleFlash = Sequence(LerpColorInterval(button, 2, white, blendType='easeInOut'), LerpColorInterval(button, 2, rgba, blendType='easeInOut'))
         self.__clarabelleFlash.loop()

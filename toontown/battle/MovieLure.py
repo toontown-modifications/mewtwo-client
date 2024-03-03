@@ -112,7 +112,7 @@ def __createFishingPoleMultiTrack(lure, dollar, dollarName):
             if trapProp:
                 suitTrack.append(Func(trapProp.wrtReparentTo, suit))
                 suit.battleTrapProp = trapProp
-            suitTrack.append(Func(suit.loop, 'neutral'))
+            suitTrack.append(Func(suit.loop, 'lured'))
             suitTrack.append(Func(battle.lureSuit, suit))
             if hp > 0:
                 suitTrack.append(__createSuitDamageTrack(battle, suit, hp, lure, trapProp))
@@ -159,7 +159,7 @@ def __createMagnetMultiTrack(lure, magnet, pos, hpr, scale, isSmallMagnet = 1, n
                 numShakes = 3
                 shakeTotalDuration = 0.8
                 shakeDuration = shakeTotalDuration / float(numShakes)
-                suitTrack.append(Func(suit.loop, 'neutral'))
+                suitTrack.append(Func(suit.loop, 'lured'))
                 suitTrack.append(Wait(suitDelay))
                 suitTrack.append(ActorInterval(suit, 'landing', startTime=2.37, endTime=1.82))
                 for i in range(0, numShakes):
@@ -223,7 +223,7 @@ def __createHypnoGogglesMultiTrack(lure, npcs = []):
                 suitTrack.append(Wait(suitDelay))
                 suitTrack.append(ActorInterval(suit, 'hypnotized', duration=3.1))
                 suitTrack.append(Func(suit.setPos, battle, reachPos))
-                suitTrack.append(Func(suit.loop, 'neutral'))
+                suitTrack.append(Func(suit.loop, 'lured'))
                 suitTrack.append(Func(battle.lureSuit, suit))
                 if hp > 0:
                     suitTrack.append(__createSuitDamageTrack(battle, suit, hp, lure, trapProp))
@@ -600,7 +600,7 @@ def __createSlideshowMultiTrack(lure, npcs = []):
                 suitTrack.append(Wait(suitDelay))
                 suitTrack.append(ActorInterval(suit, 'hypnotized', duration=3.1))
                 suitTrack.append(Func(suit.setPos, battle, reachPos))
-                suitTrack.append(Func(suit.loop, 'neutral'))
+                suitTrack.append(Func(suit.loop, 'lured'))
                 suitTrack.append(Func(battle.lureSuit, suit))
                 if hp > 0:
                     suitTrack.append(__createSuitDamageTrack(battle, suit, hp, lure, trapProp))

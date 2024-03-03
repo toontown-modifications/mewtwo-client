@@ -1,12 +1,12 @@
 from direct.gui.DirectGui import *
 from panda3d.core import *
-from panda3d.core import *
 from direct.interval.IntervalGlobal import *
 from toontown.toonbase.ToontownGlobals import *
 from toontown.toonbase import ToontownTimer
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
 from toontown.toonbase import TTLocalizer
+
 
 class DistributedTarget(DistributedObject.DistributedObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedTarget')
@@ -97,9 +97,9 @@ class DistributedTarget(DistributedObject.DistributedObject):
             if self.fadeTrack:
                 self.fadeTrack.pause()
             if enabled:
-                self.fadeTrack = Sequence(Func(base.localAvatar.setSystemMessage, 0, TTLocalizer.EstateTargetGameStart), Func(self.geom.unstash), Func(self.geom.lerpColorScale, Vec4(1.0, 1.0, 1.0, 0.0), Vec4(1.0, 1.0, 1.0, 1.0), 1.0), Wait(1), Func(base.localAvatar.setSystemMessage, 0, TTLocalizer.EstateTargetGameInst))
+                self.fadeTrack = Sequence(Func(base.localAvatar.setSystemMessage, 0, TTLocalizer.EstateTargetGameStart), Func(self.geom.unstash), Func(self.geom.colorScaleInterval, 1.0, Vec4(1.0, 1.0, 1.0, 1.0)), Wait(1), Func(base.localAvatar.setSystemMessage, 0, TTLocalizer.EstateTargetGameInst))
             else:
-                self.fadeTrack = Sequence(Func(self.geom.lerpColorScale, Vec4(1.0, 1.0, 1.0, 1.0), Vec4(1.0, 1.0, 1.0, 0.0), 1.0), Func(self.geom.stash), Func(self.hideTimer), Func(base.localAvatar.setSystemMessage, 0, TTLocalizer.EstateTargetGameEnd))
+                self.fadeTrack = Sequence(Func(self.geom.colorScaleInterval, 1.0, Vec4(1.0, 1.0, 1.0, 0.0)), Func(self.geom.stash), Func(self.hideTimer), Func(base.localAvatar.setSystemMessage, 0, TTLocalizer.EstateTargetGameEnd))
             self.fadeTrack.start()
             self.enabled = enabled
         if score != self.score:

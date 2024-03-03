@@ -154,7 +154,7 @@ class DistributedBuilding(DistributedObject.DistributedObject):
             self.acceptOnce('insideVictorElevator', self.handleInsideVictorElevator)
             camera.reparentTo(render)
             camera.setPosHpr(self.elevatorNodePath, 0, -32.5, 9.4, 0, 348, 0)
-            base.camLens.setFov(52.0)
+            base.camLens.setMinFov(52.0 / (4. / 3.))
             anyOthers = 0
             for v in self.victorList:
                 if v != 0 and v != base.localAvatar.doId:
@@ -192,7 +192,7 @@ class DistributedBuilding(DistributedObject.DistributedObject):
             self.acceptOnce('insideVictorElevator', self.handleInsideVictorElevatorFromCogdo)
             camera.reparentTo(render)
             camera.setPosHpr(self.elevatorNodePath, 0, -32.5, 9.4, 0, 348, 0)
-            base.camLens.setFov(52.0)
+            base.camLens.setMinFov(52.0 / (4. / 3.))
             anyOthers = 0
             for v in self.victorList:
                 if v != 0 and v != base.localAvatar.doId:
@@ -704,9 +704,26 @@ class DistributedBuilding(DistributedObject.DistributedObject):
         return
 
     def walkOutCameraTrack(self):
-        track = Sequence(Func(camera.reparentTo, render), Func(camera.setPosHpr, self.elevatorNodePath, 0, -32.5, 9.4, 0, 348, 0), Func(base.camLens.setFov, 52.0), Wait(VICTORY_RUN_TIME), Func(camera.setPosHpr, self.elevatorNodePath, 0, -32.5, 17, 0, 347, 0), Func(base.camLens.setFov, 75.0), Wait(TO_TOON_BLDG_TIME), Func(base.camLens.setFov, 52.0))
+        track = Sequence(
+            # Put the camera under render
+            Func(camera.reparentTo, render),
+            # Watch the toons come out of the door
+            Func(camera.setPosHpr,
+                 self.elevatorNodePath,
+                 0, -32.5, 9.4, 0, 348, 0),
+            Func(base.camLens.setMinFov, 52.0 / (4. / 3.)),
+            Wait(VICTORY_RUN_TIME),
+            # Watch the building transform
+            Func(camera.setPosHpr,
+                 self.elevatorNodePath,
+                 0, -32.5, 17, 0, 347, 0),
+            Func(base.camLens.setMinFov, 75.0 / (4. / 3.)),
+            Wait(TO_TOON_BLDG_TIME),
+            # Put the camera fov back to normal
+            Func(base.camLens.setMinFov, 52.0 / (4. / 3.)),
+            )
         return track
-
+        
     def plantVictorsOutsideBldg(self):
         retVal = 0
         for victor in self.victorList:

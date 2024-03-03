@@ -14,6 +14,8 @@ params = {
 }
 
 os.environ["USE_LIVE_SERVER"] = "true"
+os.environ["GAME_SERVER"] = "127.0.0.1"
+
 
 try:
     request = requests.post(

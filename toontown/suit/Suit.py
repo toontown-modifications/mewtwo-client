@@ -29,6 +29,7 @@ AllSuitsBattle = (('drop-react', 'anvil-drop'),
  ('reach', 'walknreach'),
  ('rake-react', 'rake'),
  ('hypnotized', 'hypnotize'),
+ ('lured', 'lured'),
  ('soak', 'soak'))
 SuitsCEOBattle = (('sit', 'sit'),
  ('sit-eat-in', 'sit-eat-in'),
@@ -930,6 +931,7 @@ class Suit(Avatar.Avatar):
         self.loseActor.setScale(self.scale)
         self.loseActor.setPos(self.getPos())
         self.loseActor.setHpr(self.getHpr())
+        self.loseActor.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
         shadowJoint = self.loseActor.find('**/joint_shadow')
         dropShadow = loader.loadModel('phase_3/models/props/drop_shadow')
         dropShadow.setScale(0.45)

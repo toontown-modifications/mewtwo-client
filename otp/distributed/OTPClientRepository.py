@@ -826,8 +826,6 @@ class OTPClientRepository(ClientRepositoryBase):
         else:
             message = OTPLocalizer.CRLostConnection
         reconnect = 1
-        if self.bootedIndex in (152, 127):
-            reconnect = 0
         self.launcher.setDisconnectDetails(self.bootedIndex, message)
         style = OTPDialog.Acknowledge
         if reconnect and self.loginInterface.supportsRelogin():
