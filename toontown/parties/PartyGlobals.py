@@ -36,6 +36,15 @@ PartyEditorGridBounds = ((-0.11, 0.289), (0.55, -0.447))
 PartyEditorGridCenter = (PartyEditorGridBounds[0][0] + (PartyEditorGridBounds[1][0] - PartyEditorGridBounds[0][0]) / 2.0, PartyEditorGridBounds[1][1] + (PartyEditorGridBounds[0][1] - PartyEditorGridBounds[1][1]) / 2.0)
 PartyEditorGridSize = (18, 15)
 PartyEditorGridSquareSize = ((PartyEditorGridBounds[1][0] - PartyEditorGridBounds[0][0]) / float(PartyEditorGridSize[0]), (PartyEditorGridBounds[0][1] - PartyEditorGridBounds[1][1]) / float(PartyEditorGridSize[1]))
+PartyEditorGridBoundsWidescreen  =  ((-0.075, 0.289), (0.39, -0.447))
+PartyEditorGridCenterWidescreen = (
+    PartyEditorGridBoundsWidescreen[0][0] + (PartyEditorGridBoundsWidescreen[1][0] - PartyEditorGridBoundsWidescreen[0][0])/2.0,
+    PartyEditorGridBoundsWidescreen[1][1] + (PartyEditorGridBoundsWidescreen[0][1] - PartyEditorGridBoundsWidescreen[1][1])/2.0,
+)
+PartyEditorGridSquareSizeWidescreen  = (
+    (PartyEditorGridBoundsWidescreen[1][0] - PartyEditorGridBoundsWidescreen[0][0]) / float(PartyEditorGridSize[0]),
+    (PartyEditorGridBoundsWidescreen[0][1] - PartyEditorGridBoundsWidescreen[1][1]) / float(PartyEditorGridSize[1]),
+)
 PartyEditorGridRotateThreshold = 0.08
 AvailableGridSquares = 202
 TrashCanPosition = (-0.24, 0.0, -0.65)
