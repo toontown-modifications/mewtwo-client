@@ -277,7 +277,6 @@ def __dropObject(drop, delay, objName, level, alreadyDodged, alreadyTeased, npcs
 
     def posObject(object, suit, level, majorObject, miss, battle = battle):
         object.reparentTo(battle)
-        object.setBlend(frameBlend=base.settings.getSetting('smooth-frames', False))
         if battle.isSuitLured(suit):
             suitPos, suitHpr = battle.getActorPosHpr(suit)
             object.setPos(suitPos)
