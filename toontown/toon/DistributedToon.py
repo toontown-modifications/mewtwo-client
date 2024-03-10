@@ -186,6 +186,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         self.gmNameTagColor = 'whiteGM'
         self.gmNameTagString = ''
         self._lastZombieContext = None
+        self.transitioning = False
         return
 
     def disable(self):
@@ -2610,6 +2611,9 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             if not present:
                 self.notify.warning('hiding av %s because they are not on the district!' % self.doId)
                 self.setParent(OTPGlobals.SPHidden)
+
+    def getTransitioning(self):
+        return self.transitioning
 
     def ping(self, val):
         module = ''
